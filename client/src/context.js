@@ -198,6 +198,7 @@ useEffect(()=>{
   //   loginGoogleTime:"",
   //   googleUserDataSub:""
   // })
+
   const [logUserData, setLogUserData] = useState({
     regEmail: "",
     regName: "",
@@ -227,6 +228,7 @@ useEffect(()=>{
             },
           }
         );
+
         setLogUserData({
           ...logUserData,
           regEmail: data.data.email,
@@ -242,11 +244,34 @@ useEffect(()=>{
           oglasiKojePratim:[],
           lastLogin: timeOfLogin,
           rememberMe: false
-
         });
+
+
+        axios.post("http://localhost:3001/addUser", {
+          regEmail:data.data.email,
+          regName:"",
+          regPassword:"" ,
+          regRepeatPassword:"",
+          googleUserDataSub: data.data.sub,
+          registrationDate: timeOfLogin,
+          lastLogin: "",
+          mojiOglasi:"",
+          poruke:"",
+          oglasiKojePratim:"",
+          pozitivneOcene: 0,
+          negativneOcene: 0,
+          
+        })
+        .then((response) => {
+          console.log(response);
+       
+        })
+
+
       } catch (err) {
         console.log(err);
       }
+     
     },
   });
 console.log(logUserData&&logUserData);
@@ -322,7 +347,8 @@ console.log(logUserData&&logUserData);
     }
   }, [allDataFromDatabase,potvrdiBrisanje]);
 console.log(allDataFromDatabase&&allDataFromDatabase);
-  //CUSTOM LOGIN SUBMIT BUTTON
+ 
+//CUSTOM LOGIN SUBMIT BUTTON
   const [errorAuthLogIn, setErrorAuthLogIn] = useState(false);
   const navigate = useNavigate();
 

@@ -118,7 +118,7 @@ console.log(formRef.current);
 
     if (testPattern) {
       if (duplicateEmail&&duplicateEmail.length === 0 && duplicateEmail!=="undefined") {
-        // alert('there put axios post request! Success')
+        alert('there put axios post request! Success')
         setLoading(true);
         setErrorAuth("ok");
 
@@ -145,17 +145,17 @@ console.log(formRef.current);
          
 
 
-    axios.post('http://localhost:3001/send_email',{
-      regEmail:registracijaDetails.regEmail,
-      regName:registracijaDetails.regName,
-      regPassword:registracijaDetails.regPassword
-    })
-  .then(res=>{
-  console.log('send');
-  })
-  .catch(()=>{
-  console.log('MessageNotrSEnd');
-  })
+  //   axios.post('http://localhost:3001/send_email',{
+  //     regEmail:registracijaDetails.regEmail,
+  //     regName:registracijaDetails.regName,
+  //     regPassword:registracijaDetails.regPassword
+  //   })
+  // .then(res=>{
+  // console.log('send!');
+  // })
+  // .catch(()=>{
+  // console.log('MessageNotrSEnd');
+  // }) TREBA!!!!!
 
 
         setRegistracijaDetails({
@@ -172,7 +172,11 @@ console.log(formRef.current);
         // alert('there is a same email adress you can not sign up')
         if(axiosError&&axiosError.message==="Network Error"){
           setErrorAuth('Greška! Proverite vašu internet konekciju i osvežite stranicu.')
-        }else{
+        }
+        if(axiosError&&axiosError.message==="Request failed with status code 400"){
+          setErrorAuth('Greška! Neispravan zahtev.')
+        }
+        else{
           setErrorAuth(
             "Korisnik " +
               registracijaDetails.regEmail +
