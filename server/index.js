@@ -72,7 +72,7 @@ app.post("/addUser", (req, res) => {
     .save()
     .then((item) => {
       res.send("item saved to database");
-      console.log(res);
+      
     })
     .catch((err) => {
       res.status(400).send("unable to save to database");

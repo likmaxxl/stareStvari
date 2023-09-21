@@ -237,7 +237,7 @@ useEffect(()=>{
           regRepeatPassword: "",
           googleUserDataSub: data.data.sub,
           registrationDate: timeOfLogin,
-          mojiOglasi:"",
+          mojiOglasi:[],
           negativneOcene: 0,
           pozitivneOcene: 0,
           poruke: [],

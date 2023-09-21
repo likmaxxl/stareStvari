@@ -118,7 +118,6 @@ console.log(formRef.current);
 
     if (testPattern) {
       if (duplicateEmail&&duplicateEmail.length === 0 && duplicateEmail!=="undefined") {
-        alert('there put axios post request! Success')
         setLoading(true);
         setErrorAuth("ok");
 
@@ -131,7 +130,7 @@ console.log(formRef.current);
             googleUserDataSub: registracijaDetails.googleUserDataSub,
             registrationDate: timeOfRegistration,
             lastLogin: "",
-            mojiOglasi:"",
+            mojiOglasi:[],
             poruke:"",
             oglasiKojePratim:"",
             pozitivneOcene: 0,
