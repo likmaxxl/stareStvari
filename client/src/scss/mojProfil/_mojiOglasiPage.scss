@@ -1,0 +1,179 @@
+.mojiOglasiWrap {
+  margin-top: 120px;
+  padding: 0 0 0 0px;
+  @media screen and (min-width: 768px) {
+    padding: 0 0 0 34px;
+  }
+  .mojiOglasiHeader {
+    h3 {
+      text-transform: capitalize;
+      color: #782201;
+      font-size: 17px;
+      @media screen and (min-width: 768px) {
+        font-size: 22.834px;
+      }
+      span {
+        color: #696969;
+        text-transform: lowercase;
+      }
+    }
+    .mojOglasiOcene {
+      a {
+        display: flex;
+        align-items: flex-start;
+        font-weight: 600;
+        font-size: 17px;
+        text-decoration: none;
+        transition: all 0.3s;
+        color: #782201;
+        margin-top: 17px;
+        @media screen and (min-width: 768px) {
+          font-size: 20px;
+        }
+        span {
+          font-size: 17px;
+          font-weight: 400;
+          display: inline-block;
+          position: relative;
+          &:nth-of-type(1) {
+            margin-left: 10px;
+            top: -4px;
+            @media screen and (min-width: 768px) {
+              top: 0;
+            }
+          }
+          &:nth-of-type(2) {
+            color: #8cc63f;
+            position: relative;
+            top: 0px;
+            left: 2px;
+            @media screen and (min-width: 768px) {
+              top: 4px;
+            }
+          }
+
+          &:nth-of-type(3) {
+            margin-left: 15px;
+            top: -4px;
+            @media screen and (min-width: 768px) {
+              top: 0;
+            }
+          }
+          &:nth-of-type(4) {
+            color: #ff1e00;
+            position: relative;
+            top: 0px;
+            left: 2px;
+            @media screen and (min-width: 768px) {
+              top: 4px;
+            }
+          }
+          img {
+            position: relative;
+
+            width: 17.5px;
+          }
+        }
+        &:hover {
+          transition: all 0.3s;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration-thickness: 1px;
+        }
+      }
+    }
+  }
+
+  .mojiOglasiSortLength {
+    display: flex;
+    font-size: 17px;
+    color: #782201;
+    font-weight: 600;
+    margin: 66px 0 22px 0;
+    .length {
+      width: 100%;
+    }
+    .sort {
+      margin-left: -121px;
+      @media screen and (min-width: 768px) {
+        margin-left: 20px;
+      }
+      cursor: pointer;
+      width: 148px;
+      span {
+        position: relative;
+        left: 27px;
+        svg {
+          width: 22px;
+        }
+      }
+      .sortMenu {
+        overflow: hidden;
+        position: absolute;
+        height: 200px;
+        width: 150px;
+        ul {
+          -webkit-box-shadow: 3px 9px 26px -10px rgba(0, 0, 0, 0.64);
+          -moz-box-shadow: 3px 9px 26px -10px rgba(0, 0, 0, 0.64);
+          box-shadow: 3px 9px 26px -10px rgba(0, 0, 0, 0.64);
+          position: absolute;
+          text-transform: capitalize;
+          list-style: none;
+          margin: 5px 0 0 0;
+          padding: 0;
+          z-index: 2;
+          background: white;
+          //   border: Solid 1px #782201;
+          //   border-top:none;
+          top: -229px;
+
+          transition: all 0.3s;
+          li {
+            cursor: pointer;
+            padding: 10px 26px 10px 26px;
+            transition: all 0.3s;
+            &:hover {
+              color: white;
+              background-color: #782201;
+              transition: all 0.3s;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  /*****************ANIMATOIN******************/
+  .slideInDown {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    top: 0 !important;
+  }
+  @-webkit-keyframes slideInDown {
+    0% {
+      -webkit-transform: translateY(-100%);
+      transform: translateY(-100%);
+      visibility: visible;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideInDown {
+    0% {
+      -webkit-transform: translateY(-100%);
+      transform: translateY(-100%);
+      visibility: visible;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+  }
+}

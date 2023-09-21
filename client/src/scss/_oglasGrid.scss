@@ -1,0 +1,221 @@
+.card {
+  padding: 5px 5px 10px 5px;
+  // display: block !important;
+  display: flex;
+  gap: 19px;
+  margin-bottom: 12px;
+  flex-direction: row !important;
+  -webkit-box-shadow: 3px 9px 9px -7px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 9px 9px -7px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 9px 9px -7px rgba(0, 0, 0, 0.75);
+  @media screen and (min-width: 768px) {
+    flex-direction: row !important;
+    display: flex !important;
+    padding: 0 8px 9px 0;
+    margin-bottom: 20px;
+  }
+  a {
+    img {
+      width: 100%;
+      height: 168px;
+      border-radius: 5px;
+      object-fit: cover;
+      @media screen and (min-width: 768px) {
+        width: 125px;
+        height: 138px;
+      }
+    }
+  }
+  .info {
+    width: 100%;
+
+    .top {
+      display: block;
+      gap: 12px;
+      margin-bottom: 7px;
+      margin-top: 10px;
+      @media screen and (min-width: 768px) {
+        display: flex;
+        margin-top: 0px;
+        align-items: center;
+      }
+      .date {
+      }
+      .infoView {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: flex-start;
+        @media screen and (min-width: 768px) {
+          justify-content: flex-end;
+        }
+        .css-j204z7-MuiFormControlLabel-root {
+          transition: all 0.3s;
+          padding: 0 10px 0 0;
+          &:hover {
+            background-color: rgba(25, 118, 210, 0.04);
+            transition: all 0.3s;
+          }
+        }
+        .followBtns {
+          align-items: center;
+          justify-content: flex-start;
+          display: flex;
+          margin-right: 20px;
+          width: 100%;
+          margin-top: 4px;
+          @media screen and (min-width: 768px) {
+            margin-right: 60px;
+            width: auto;
+          }
+          label {
+            padding: 0;
+            margin: 0;
+            @media screen and (min-width: 768px) {
+              margin-right: 30px;
+            }
+            span {
+              &:nth-of-type(2) {
+                display: none;
+                @media screen and (min-width: 768px) {
+                  display: inline;
+                }
+              }
+            }
+          }
+          button {
+            width: auto;
+            margin: 0;
+            padding: 0;
+            span {
+              &:nth-of-type(1) {
+                display: none;
+                @media screen and (min-width: 768px) {
+                  display: inline;
+                }
+              }
+            }
+          }
+
+          .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+            color: #212529;
+          }
+        }
+        .views {
+          display: flex;
+          position: absolute;
+          bottom: 8px;
+          right: 11px;
+          display: flex;
+          @media screen and (min-width: 768px) {
+            position: static;
+          }
+          svg {
+            margin-right: 3px;
+          }
+        }
+      }
+      .marker {
+        width: 20px;
+        height: 20px;
+        margin-right: -10px;
+      }
+      .map {
+        a {
+          color: #918e9b;
+        }
+      }
+      .name {
+        font-size: 16px;
+      }
+    }
+  }
+  .hitnoBanner {
+    position: relative;
+
+    .neon {
+      top: -4px;
+      bottom: auto;
+      right: 0;
+      position: absolute;
+      margin-left: 10px;
+      font-family: "Chelsea Market", cursive;
+      font-size: 11px;
+      color: #ffe9e1;
+      font-weight: 400;
+      letter-spacing: 8px;
+      text-shadow: 1px 0px 4px #993816, 2px 0px 4px #993816, 3px 0px 4px #993816,
+        2px 0px 3px #993816, 2px 3px 15px #993816, 2px 0px 15px, 5px 0px 125px,
+        20px 0vw 200px #993816, 40px 0vw 200px #993816;
+      @media screen and (min-width: 768px) {
+        bottom: 0;
+        top: auto;
+        right: 0;
+        font-size: 13px;
+      }
+    }
+
+    .flicker-slow {
+      animation: flicker 3s linear infinite;
+    }
+
+    .flicker-fast {
+      animation: flicker 1s linear infinite;
+    }
+  }
+  @keyframes flicker {
+    0%,
+    19.999%,
+    22%,
+    62.999%,
+    64%,
+    64.999%,
+    70%,
+    100% {
+      //text-shadow: none;
+      opacity: 0.99;
+    }
+    20%,
+    21.999%,
+    63%,
+    63.999%,
+    65%,
+    69.999% {
+      opacity: 0.4;
+    }
+  }
+  .priceTitle {
+    .title {
+      font-weight: normal;
+      font-size: 23px;
+      padding-bottom: 8px;
+      line-height: 23px;
+      a {
+        text-decoration: none;
+        color: #9f2115;
+      }
+    }
+    .price {
+      font-weight: bold;
+      color: #5c898f;
+      font-size: 17px;
+      @media screen and (min-width: 768px) {
+        font-size: 19px;
+      }
+    }
+  }
+  .citty {
+    padding-top: 20px;
+
+    @media screen and (min-width: 768px) {
+      left: 258px;
+      top: -9px;
+      position: absolute;
+    }
+  }
+  .description {
+    font-size: 16px;
+    line-height: 21px;
+    width: 84%;
+  }
+}

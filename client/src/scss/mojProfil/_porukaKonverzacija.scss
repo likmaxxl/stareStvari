@@ -1,0 +1,359 @@
+.porukaKonverzacija {
+  margin-top: 78px;
+  padding-top: 30px;
+
+    // @media screen and (min-width: 992px) {
+    //   display: flex;
+    //   align-items: flex-end;
+    //   justify-content: flex-end;
+    //   flex-direction: column;
+    // }
+  .backButton {
+    color: #5e8d93;
+    text-decoration: none;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+    svg {
+      font-size: 15px;
+      position: relative;
+      top: 1px;
+    }
+  }
+  .emailKorisnikaOcena {
+    font-size: 17px;
+    .emailKorisnika {
+      padding: 10px 0;
+    }
+    .oceniBlokiraj {
+      display: flex;
+      align-items: center;
+      a {
+        color: #993816;
+        text-decoration: none;
+      }
+      .blokiraOpcije {
+        margin-left: 10px;
+        button {
+          transition: all 0.3s;
+          border: none;
+          color: #993816;
+          background-color: transparent;
+          border-radius: 4px;
+          margin-left: 10px;
+          &:hover {
+            transition: all 0.3s;
+            background-color: #5e8d93;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  .detaljiOglasa {
+    margin-top: 20px;
+    padding: 11px 0 15px 11px;
+    border: solid 1px #d1d1d1;
+    border-radius: 10px;
+    @media screen and (min-width: 992px) {
+      display: flex;
+      align-items: center;
+    }
+    a {
+      text-decoration: none;
+
+      width: 40%;
+
+      .naslovOglasaSlika {
+        display: flex;
+        align-items: center;
+        color: black;
+
+        img {
+          width: 80px;
+        }
+        span {
+          margin-left: 10px;
+          text-decoration: underline;
+          text-underline-offset: 3.5px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .cenaOglasa,
+    .pregledaOglasa,
+    .pratiocaOglasa {
+      display: inline-flex;
+      margin: 17px 20px 0 0;
+      @media screen and (min-width: 992px) {
+        margin: 0;
+        width: 10%;
+      }
+    }
+    .cenaOglasa {
+      color: #993816;
+      font-weight: 600;
+      font-size: 18px;
+      @media screen and (min-width: 992px) {
+        margin-left: 36px;
+      }
+    }
+
+    .datumPostavkeOglasa,
+    .mestoKorisnika {
+      color: #4c4c4c;
+      font-size: 14px;
+      @media screen and (min-width: 992px) {
+        font-size: 15px;
+      }
+    }
+    .datumPostavkeOglasa {
+      margin-top: 7px;
+      @media screen and (min-width: 992px) {
+        text-align: right;
+        width: 14%;
+        margin: 0 18px 0 0;
+      }
+    }
+  }
+  //   POLJA ZA CITANJE I PISANJE PORUKE
+
+  .konverzacijaPor {
+    transition: all .3s;
+    margin-top: 20px;
+    margin-top: 20px;
+    width: 100%;
+position: absolute;
+    bottom: 0;
+    right: 0;
+    .container{
+    @media screen and (min-width:768px) {
+      display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+    }
+
+    .openCloseConversationMessage{
+      display: flex;
+      justify-content: flex-end;
+ 
+      padding:8px 5px;
+      cursor:pointer;
+      border:solid 1px #d1d1d1;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      background:white;
+    svg{
+      font-size: 28px;
+    }
+    }
+    .openConversation {
+      box-shadow: 0px 3px 5px -4px #276873;
+      background:linear-gradient(to bottom, #0058ef 5%, #6d8bbf 100%);
+      background-color: #0058ef;
+      border-radius: 8px;
+      display: inline-block;
+      cursor: pointer;
+      color: #ffffff;
+      font-family: Arial;
+      font-size: 15px;
+      padding: 4px 10px;
+      text-decoration: none;
+      text-shadow: 0px 1px 0px #3d768a;
+      border:none;
+      margin-top:-3px;
+  
+      
+    }
+    .openConversation:hover {
+      background:linear-gradient(to bottom, #8eb4f5 5%, #0058ef 100%);
+      background-color:#8eb4f5;
+    }
+    .openConversation:active {
+      position:relative;
+      top:1px;
+    }
+    .readMessage {
+      padding-bottom: 0px;
+      background: aliceblue;
+      border-left: solid 1px #d1d1d1;
+      border-right: solid 1px #d1d1d1;
+      height: 231px;
+      overflow: auto;
+      overflow-x: hidden;
+      transition: all .3s;
+      /* Track */
+      @media screen and (min-width:768px){
+        height: 325px;
+      }
+      .readDate {
+        padding: 20px 0;
+        text-align: center;
+        color: rgb(129, 129, 129);
+        font-size: 14px;
+      }
+      .visitorMessage,
+      .userMessage {
+        margin: 10px 0;
+        background: aliceblue;
+        font-size: 15px;
+        width: 70%;
+        span {
+          display: block;
+          &:nth-of-type(2) {
+            width: 100%;
+            color: rgb(129, 129, 129);
+            font-size: 12px;
+          }
+        }
+      }
+      .visitorMessage {
+        .visitorBox {
+          background-color: #e1e1e8;
+          color: #2a2b2e;
+          box-shadow: 0 2px 0 #00000020;
+          display: inline-flex;
+          padding: 10.2px;
+          position: relative;
+          margin-left: 13px;
+          border-radius: 11px;
+          flex-wrap: wrap;
+          &:before {
+            content: "\a";
+            border-style: solid;
+            border-width: 6px 6px 6px 0;
+            border-color: transparent #e1e1e8 transparent transparent;
+            position: absolute;
+            left: -6px;
+            bottom: 8px;
+          }
+        }
+      }
+      .userMessage {
+        display: flex;
+        justify-content: flex-end;
+        width: 70%;
+        transform: translate(43%, 0px);
+        .userBox {
+          padding: 10px 4px;
+          position: relative;
+          margin-right: 13px;
+          border-radius: 11px;
+          flex-wrap: wrap;
+          display: inline-flex;
+          background-color: #057ef7;
+          color: white;
+          box-shadow: 0 2px 0 #1aa0ff20;
+          &:before {
+            content: "\a";
+            border-style: solid;
+            border-width: 6px 6px 6px 0;
+            border-color: transparent #057ef7 transparent transparent;
+            position: absolute;
+            right: -5px;
+            bottom: 8px;
+            transform: rotate(-180deg);
+          }
+          span {
+            &:nth-of-type(2) {
+              color: #dddddd;
+            }
+          }
+        }
+      }
+    }
+    .hideMessageConversation{
+      height: 0;
+      overflow: hidden;
+      transition: all .3s;
+    }
+    /* Track */
+.readMessage::-webkit-scrollbar {
+  width:5px;
+}
+.readMessage::-webkit-scrollbar-thumb {
+  background: #818181; 
+  height:20px;
+  border-radius: 5px;
+}
+    .writeMessage {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      background: aliceblue;
+      padding-bottom: 10px;
+      padding-top:10px;
+      border-bottom: solid 1px #d1d1d1;
+      border-left: solid 1px #d1d1d1;
+      border-right: solid 1px #d1d1d1;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      .emoji {
+        cursor: pointer;
+        margin:0 5px;
+        svg {
+          font-size: 32px;
+          color: #057ef7;
+        }
+        &:hover {
+          svg {
+            color: #208efc;
+          }
+        }
+      }
+      textarea {
+        background-color: rgb(233, 233, 233);
+        border: none;
+        width: 100%;
+        height: 40px;
+        resize: none;
+        border-radius: 40px;
+        padding: 7px 15px;
+        &:focus-visible {
+          outline: none;
+        }
+      }
+      button {
+        border: none;
+        background-color: transparent;
+        padding: 5px;
+        svg {
+          color: #057ef7;
+          font-size: 33px;
+          margin-left: 3px;
+        }
+        &:hover {
+          svg {
+            color: #208efc;
+          }
+        }
+      }
+    }
+    .openCloseConversationMessage,
+    .readMessage,
+    .writeMessage{
+      @media screen and (min-width:768px){
+        width:400px;
+      }
+    }
+  }
+}
+
+.porukaKonverzacijaRight{
+  @media screen and (min-width:768px){
+    right:367px;
+    transition: all .3s;
+    transition-delay:.35s;
+  }
+  @media screen and (min-width:992px){
+    right:529px;
+
+  }
+  
+}
+}

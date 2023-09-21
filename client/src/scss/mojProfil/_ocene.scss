@@ -1,0 +1,101 @@
+.oceneProfil {
+ background: aliceblue;
+  padding-top: 97px;
+  padding-bottom:50px;
+  .oceneHeader {
+    border: dashed 1px rgb(88, 88, 88);
+    background-color: white;
+    margin-top:50px;
+       padding: 27px 13px 23px 13px;
+    border-radius: 5px;
+    .emalKorisnikaIcons {
+        @media screen and (min-width:768px){
+            display: flex;
+            align-items: center;
+        }
+      .email {
+        font-size: 17px;
+        color: #993816;
+        span {
+          color: rgb(80, 80, 80);
+          @media screen and (min-width:768px){
+           font-size: 19px;
+        }
+        }
+      }
+      .oceneIcons {
+        margin-top: 5px;
+        display: flex;
+        @media screen and (min-width:768px){
+            position: relative;
+            top: -3px;
+            margin-left: 20px;
+         }
+        .icon {
+          font-size: 16px;
+          img {
+            width: 22px;
+          }
+          &:nth-of-type(1) {
+            margin-right: 15px;
+            span {
+              color: #8cc63f;
+            }
+          }
+          &:nth-of-type(2) {
+            span {
+              color: #ff1e00;
+            }
+          }
+        }
+      }
+    }
+    .oceneNavi {
+      margin-top: 30px;
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        li {
+          padding: 6px 7px;
+     
+          cursor: pointer;
+          transition: all 0.3s;
+          border: solid 1px #993816;
+          display: flex;
+          align-items: center;
+          font-size: 15px;
+          @media screen and (min-width:360px){
+            font-size: 17px;
+            padding: 5px 9px;
+          }
+          @media screen and (min-width:768px){
+            padding: 5px 29px;
+                 border-radius: 7px;
+          }
+          &:hover {
+            border: solid 1px #993816;
+            transition: all 0.3s;
+            background-color: #993816;
+            color: white;
+          }
+          &:nth-child(2) {
+            margin: 0 3px;
+            @media screen and (min-width:768px){
+                margin: 0 14px; 
+            }
+          }
+        }
+      }
+    }
+    .selectedOcenaNavi{
+      background:#993816;
+      color:white;
+     }
+  }
+
+  .ocenaMojeOcene{
+    margin-top:40px;
+  }
+}

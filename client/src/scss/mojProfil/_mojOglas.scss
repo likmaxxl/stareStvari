@@ -1,0 +1,121 @@
+.mojProfilOglasi,
+.pratimOglase {
+  .card {
+    display: block !important;
+    .box {
+      display: flex;
+
+      & > a {
+        margin-right: 20px;
+        border: Solid 1px #80808059;
+        img {
+          width: 112px;
+          height: 168px;
+          border-radius: 5px;
+          object-fit: contain;
+        }
+      }
+      .info {
+        @media screen and (min-width: 768px) {
+          margin-top: 13px;
+        }
+      }
+      .description {
+        margin-top: 10px;
+      }
+      .infoViewsBtns {
+        .views {
+          // position: absolute;
+          // top: 15px;
+          // right: 11px;
+          font-size: 15px;
+          display: inline-flex;
+          margin-right: 15px;
+          @media screen and (min-width: 768px) {
+            display: flex;
+          }
+          svg {
+            // width: 21px;
+            margin-right: 4px;
+          }
+        }
+        .views,
+        .favorite {
+          margin: 15px 15px 0 0;
+          @media screen and (min-width: 768px) {
+            position: absolute;
+            top: 0px;
+            right: 0;
+          }
+        }
+        .favorite {
+          display: inline-flex;
+          right:78px;
+          span {
+            position: relative;
+            top: -1px;
+            left: 1px;
+          }
+        }
+  
+        .btnsOptions {
+          margin-top: 15px;
+          button {
+            margin-right: 14px;
+          }
+          @media screen and (min-width: 768px) {
+            position: absolute;
+            bottom: 14px;
+            right: 0;
+          }
+        }
+        .btnOption {
+          box-shadow: 0px 10px 14px -7px #276873;
+          background: linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+          background-color: #599bb3;
+          border-radius: 8px;
+          display: inline-block;
+          cursor: pointer;
+          color: #ffffff;
+          font-family: Arial;
+          font-size: 16px;
+          border: none;
+          padding: 4px 14px;
+          text-decoration: none;
+          text-shadow: 0px 1px 0px #3d768a;
+          &:hover {
+            background: linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+            background-color: #408c99;
+          }
+          &:active {
+            position: relative;
+            top: 1px;
+          }
+        }
+        .izmeniOglas {
+          background: linear-gradient(to bottom, #599bb3 5%, #2e2e2e 100%);
+          &:hover {
+            background: linear-gradient(to bottom, #408c99 5%, #647074 100%);
+            background-color: #408c99;
+          }
+        }
+        .obrisiOglas {
+          box-shadow: inset 0px 39px 0px -24px #e67a73;
+          background: #e4685d;
+          background-color: #e4685d;
+          &:hover {
+            background-color: #ef453a;
+            background: #ef453a;
+          }
+        }
+      }
+      &:nth-of-type(2) {
+        @media screen and (min-width: 768px) {
+          display: flex;
+          width: 100%;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}

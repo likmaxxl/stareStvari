@@ -1,0 +1,300 @@
+.detaljnaPretragaForm {
+
+  .activeOtvoriPretraguBtn {
+    background-color: #993816;
+    color: white;
+  }
+  .openCloseDetalji {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    .hotButton {
+      font-size: 15px;
+      font-weight: 600;
+      text-transform: capitalize;
+      margin: 8px 5px 0 5px;
+      border-radius: 27px;
+      padding: 8px 17px;
+      border: none;
+      transition: all 0.3s;
+      @media screen and (min-width: 992px) {
+        font-size: 17px;
+        margin: 0 8px;
+        padding: 7px 25px;
+      }
+      &:hover {
+        background-color: #cac7c7;
+        transition: all 0.3s;
+      }
+      span {
+        .css-i4bv87-MuiSvgIcon-root {
+          width: 20px;
+        }
+      }
+    }
+  }
+  .detaljnaPretragaAnimeBox {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .detaljiInputsBox {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      background-color: white;
+      padding: 10px 5px 30px 5px;
+      @media screen and (min-width: 768px) {
+        padding: 20px 40px;
+      }
+      .flexBox {
+        @media screen and (min-width: 768px) {
+          display: flex;
+          margin-bottom: 20px;
+        }
+      }
+      .pretragaPoNaslovu {
+        margin-bottom: 15px;
+        @media screen and (min-width: 768px) {
+          margin-bottom: 0px;
+        }
+        .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+          width: 100%;
+        }
+        @media screen and (min-width: 768px) {
+          width: 50%;
+          margin-right: 10px;
+        }
+      }
+      .vrstaOglasa {
+        @media screen and (min-width: 768px) {
+          width: 50%;
+          margin-left: 10px;
+        }
+      }
+      .css-16awh2u-MuiAutocomplete-root {
+        margin-bottom: 15px;
+        @media screen and (min-width: 768px) {
+          margin-bottom: 0px;
+        }
+      }
+      margin: 20px 0 0 0;
+      .detaljiCena {
+        display: flex;
+        @media screen and (min-width: 768px) {
+          width: 40%;
+          align-items: center;
+        }
+        .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+          &:nth-of-type(1) {
+            margin-right: 5px;
+          }
+          &:nth-of-type(2) {
+            margin-left: 5px;
+          }
+        }
+      }
+      .formRadio {
+        @media screen and (min-width: 768px) {
+          margin-left: 20px;
+        }
+        .MuiFormGroup-root {
+          padding: 10px 0;
+          display: flex;
+          flex-direction: row;
+        }
+      }
+      .izaberiRegion,
+      .izaberiMesto {
+        @media screen and (min-width: 768px) {
+          width: 50%;
+        }
+      }
+      .izaberiRegion {
+        @media screen and (min-width: 768px) {
+          margin-right: 10px;
+        }
+      }
+      .izaberiMesto {
+        @media screen and (min-width: 768px) {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+ 
+
+  .pretraziBtn {
+    box-shadow: 3px 4px 0px 0px #1564ad;
+    background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+    background-color: #79bbff;
+    border-radius: 5px;
+    border: 1px solid #337bc4;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 10px 44px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #528ecc;
+    width: 100%;
+    margin-top: 30px;
+    @media screen and (min-width: 768px) {
+      width: 300px;
+      margin-top: 20px;
+    }
+    &:hover {
+      background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+      background-color: #378de5;
+    }
+    &:active {
+      position: relative;
+      top: 1px;
+    }
+    .css-i4bv87-MuiSvgIcon-root {
+      width: 19px;
+    }
+  }
+}
+
+
+ /**ANIMATOIN OPEN*/
+ @-webkit-keyframes bounceInDown {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -3000px, 0);
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 25px, 0);
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, 5px, 0);
+    transform: translate3d(0, 5px, 0);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes bounceInDown {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -3000px, 0);
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 25px, 0);
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(0, 5px, 0);
+    transform: translate3d(0, 5px, 0);
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.bounceInDown {
+  -webkit-animation-name: bounceInDown;
+  animation-name: bounceInDown;
+}
+
+.animated {
+  -webkit-animation-duration: 0.7s;
+  animation-duration: 0.7s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+/*END ANIMATION OPEN*/
+
+/*CLOSE ANIMATION*/
+@-webkit-keyframes bounceOutUp {
+  20% {
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+  }
+
+  40%,
+  45% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
+  }
+}
+
+@keyframes bounceOutUp {
+  20% {
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+  }
+
+  40%,
+  45% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+  }
+
+  to {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -2000px, 0);
+    transform: translate3d(0, -2000px, 0);
+  }
+}
+
+.bounceOutUp {
+  -webkit-animation-name: bounceOutUp;
+  animation-name: bounceOutUp;
+}
+/*END CLOSE ANIMATION*/

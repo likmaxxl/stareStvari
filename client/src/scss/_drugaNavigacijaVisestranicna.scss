@@ -1,0 +1,35 @@
+.hotDealsNavigation {
+    margin-top: 26px;
+    text-align: center;
+    margin-bottom:20px;
+    @media screen and (min-width: 992px) {
+      margin-top: 41px;
+    }
+    .activeClassHotDeals {
+      background-color: #993816;
+      color: white;
+      &:hover {
+        background-color: #993816 !important;
+        transition: all 0.3s;
+      }
+    }
+
+    .hotButton {
+      font-size: 15px;
+      text-transform: capitalize;
+      margin: 8px 5px 0 5px;
+      border-radius: 27px;
+      padding: 7px 17px;
+      border: none;
+      transition: all 0.3s;
+      @media screen and (min-width: 992px) {
+        font-size: 17px;
+        margin: 0 8px;
+        padding: 7px 25px;
+      }
+      &:hover {
+        background-color: #cac7c7;
+        transition: all 0.3s;
+      }
+    }
+  }

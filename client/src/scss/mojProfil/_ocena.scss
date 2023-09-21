@@ -1,0 +1,42 @@
+.ocena {
+  margin: 30px 0;
+  padding: 20px 11px;
+  border-radius: 5px;
+  background-color: white;
+  -webkit-box-shadow: 3px 6px 14px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 6px 14px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 6px 14px -4px rgba(0, 0, 0, 0.75);
+  @media screen and (min-width:768px) {
+    padding: 19px 49px 25px 30px;
+    width: 70%;
+  }
+  .likeDislikeIcon {
+    padding: 0 0 10px 0;
+  }
+  .ocenaHeader {
+    display: flex;
+    align-items: center;
+    padding: 0 0 15px 0;
+    .emailKorisnikaOcene {
+      width: 74%;
+    }
+    .datumOcena {
+      width: 26%;
+      font-size: 14px;
+      color: rgb(80, 80, 80);
+      text-align: right;
+    }
+  }
+  .komentarOcena {
+    font-size: 15px;
+    padding: 10px 13px;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    margin-top: 20px;
+    @media screen and (min-width: 768px) {
+      font-size: 16px;
+      width: 81%;
+      padding: 26px 13px;
+    }
+  }
+}
