@@ -228,7 +228,7 @@ useEffect(()=>{
             },
           }
         );
-
+//git promena proba
         setLogUserData({
           ...logUserData,
           regEmail: data.data.email,
