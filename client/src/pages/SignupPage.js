@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Alert from "react-bootstrap/Alert";
 import axios from "axios";
-
+import { useGoogleLogin } from "@react-oauth/google";
 
 
 import {
@@ -144,6 +144,11 @@ console.log(formRef.current);
          
 
 
+
+
+
+
+
   //   axios.post('http://localhost:3001/send_email',{
   //     regEmail:registracijaDetails.regEmail,
   //     regName:registracijaDetails.regName,
@@ -166,6 +171,8 @@ console.log(formRef.current);
           googleUserDataSub: "",
         });
       
+        window.location.href="http://localhost:3000/login";
+
         setLoading(false);
       } else {
         // alert('there is a same email adress you can not sign up')
@@ -188,6 +195,70 @@ console.log(formRef.current);
 
 
   };
+
+
+
+
+
+//GOOGLE SIGN IN
+const timeOfLogin = new Date();
+const login = useGoogleLogin({
+  onSuccess: async (response) => {
+    try {
+      const data = await axios.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer${response.access_token}`,
+          },
+        }
+      );
+
+      // setLogUserData({
+      //   ...logUserData,
+      //   regEmail: data.data.email,
+      //   regName: "",
+      //   regPassword: "",
+      //   regRepeatPassword: "",
+      //   googleUserDataSub: data.data.sub,
+      //   registrationDate: timeOfLogin,
+      //   mojiOglasi:[],
+      //   negativneOcene: 0,
+      //   pozitivneOcene: 0,
+      //   poruke: [],
+      //   oglasiKojePratim:[],
+      //   lastLogin: timeOfLogin,
+      //   rememberMe: false
+      // });
+
+
+      
+console.log(data);
+
+    } catch (err) {
+      console.log(err);
+    }
+    axios.post("http://localhost:3001/addUser", {
+      regEmail:value.logUserData.regEmail,
+      regName:"",
+      regPassword:"" ,
+      regRepeatPassword:"",
+      googleUserDataSub: value.logUserData.googleUserDataSub,
+      registrationDate: timeOfLogin,
+      lastLogin: "",
+      mojiOglasi:[],
+      poruke:"",
+      oglasiKojePratim:"",
+      pozitivneOcene: 0,
+      negativneOcene: 0,
+      
+    })
+    .then((response) => {
+      console.log(response);
+   
+    })
+  },
+});
 
 
 

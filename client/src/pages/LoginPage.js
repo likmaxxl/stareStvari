@@ -165,6 +165,8 @@ export default function LoginPage() {
                           fontSize: "13px",
                         }}
                         onClick={() => value.login()}
+                        onMouseEnter={value.googleSingIn_hoverEnter}
+                        onMouseLeave={value.googleSingIn_hoverOut}
                       />
                       {/* <div className="logsBtns">
                         <a href="#" className="logInBtn loginBtn--facebook" onClick={handlefacebookLogin}>

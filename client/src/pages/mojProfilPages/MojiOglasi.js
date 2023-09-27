@@ -130,7 +130,7 @@ export default function MojiOglasi() {
           <div className="mojiOglasiSortLength">
             <div className="sortLength length">
               Ukupno Oglasa:{" "}
-              {value.mojiOglasi ? value.mojiOglasi.length - 1 : "0"}
+              {value.mojiOglasi ? value.mojiOglasi.length : "0"}
             </div>
             <div className="sortLength sort" onClick={sortirajClick}>
               <span>

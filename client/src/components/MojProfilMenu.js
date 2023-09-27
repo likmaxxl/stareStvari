@@ -47,7 +47,7 @@ export default function MojProfilMenu() {
                   <span>
                     <Folder />
                   </span>{" "}
-                  Moji oglasi <span>{value.mojiOglasi&&value.mojiOglasi.length>0?value.mojiOglasi.length-1:0}</span>
+                  Moji oglasi <span>{value.mojiOglasi&&value.mojiOglasi.length>0?value.mojiOglasi.length:0}</span>
                 </Link>
               </li>
               <li>
