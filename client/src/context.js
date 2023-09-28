@@ -456,7 +456,7 @@ console.log(googleBtnHover);
 
   /********************END SIGN IN***********/
 
-  /**POTVRDA BRISANJA PGLASA (DRUGA FN DA BI SE AUTOMATSKI OCITALO STANJE IZ BAZE) */
+  /**POTVRDA BRISANJA OGLASA (DRUGA FN DA BI SE AUTOMATSKI OCITALO STANJE IZ BAZE) */
 
 const potvrdaBrisanja=()=>{
   setPotvrdiBrisanje(!potvrdiBrisanje)
