@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useState,useEffect } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 // import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
@@ -9,13 +9,104 @@ import Button from "@mui/material/Button";
 // import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Alert from "react-bootstrap/Alert";
 import GoogleButton from "react-google-button";
-
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { StareStvariContext } from "../context";
+import axios from 'axios'
+import { useGoogleLogin } from "@react-oauth/google";
+
 
 export default function LoginPage() {
   const value = useContext(StareStvariContext);
+
+
+//GOOGLE SIGN IN
+const timeOfLogin = new Date();
+const [googleLogData,setGoogleLogData]=useState(
+{  regEmail:'',
+  regName: "",
+  regPassword: "",
+  regRepeatPassword: "",
+  googleUserDataSub: '',
+  registrationDate: '',
+  mojiOglasi:[],
+  negativneOcene: 0,
+  pozitivneOcene: 0,
+  poruke: [],
+  oglasiKojePratim:[],
+  lastLogin: '',
+  rememberMe: false}
+)
+const login = useGoogleLogin({
+  onSuccess: async (response) => {
+    try {
+      const data = await axios.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer${response.access_token}`,
+          },
+        }
+      );
+
+      setGoogleLogData({
+        ...googleLogData,
+        regEmail: data.data.email,
+        regName: "",
+        regPassword: "",
+        regRepeatPassword: "",
+        googleUserDataSub: data.data.sub,
+        registrationDate: timeOfLogin,
+        mojiOglasi:[],
+        negativneOcene: 0,
+        pozitivneOcene: 0,
+        poruke: [],
+        oglasiKojePratim:[],
+        lastLogin: timeOfLogin,
+        rememberMe: false
+      });
+
+
+      
+console.log(data);
+
+    } catch (err) {
+      console.log(err);
+    }
+   
+  },
+});
+
+useEffect(()=>{
+  if(googleLogData.regEmail){
+    alert(googleLogData.regEmail&&googleLogData.regEmail);
+  }
+
+
+//   if(googleLogData.regEmail&&googleLogData.googleUserDataSub){
+//   axios.post("http://localhost:3001/addUser", {
+//     regEmail:googleLogData.regEmail&&googleLogData.regEmail,
+//     regName:"",
+//     regPassword:"" ,
+//     regRepeatPassword:"",
+//     googleUserDataSub:googleLogData.googleUserDataSub,
+//     registrationDate: timeOfLogin,
+//     lastLogin: "",
+//     mojiOglasi:[],
+//     poruke:"",
+//     oglasiKojePratim:"",
+//     pozitivneOcene: 0,
+//     negativneOcene: 0,
+    
+//   })
+//   .then((response) => {
+//     console.log(response);
+ 
+//   })
+// }
+
+},[value.googleSingIn_hoverEnter,value.googleSingIn_hoverOut])
+
 
   return (
     <>
@@ -164,7 +255,7 @@ export default function LoginPage() {
                           letterSpacing: ".9px",
                           fontSize: "13px",
                         }}
-                        onClick={() => value.login()}
+                        onClick={() => login()}
                         onMouseEnter={value.googleSingIn_hoverEnter}
                         onMouseLeave={value.googleSingIn_hoverOut}
                       />
