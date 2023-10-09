@@ -79,33 +79,47 @@ console.log(data);
 
 useEffect(()=>{
   if(googleLogData.regEmail){
-    alert(googleLogData.regEmail&&googleLogData.regEmail);
+    // alert(googleLogData.regEmail&&googleLogData.regEmail);
+    console.log(googleLogData.regEmail+googleLogData.googleUserDataSub);
+    console.log(value.allDataFromDatabase);
+let filteredEmail=value.allDataFromDatabase&&value.allDataFromDatabase.filter(all=>{
+  return all.regEmail===googleLogData.regEmail
+})
+console.log(filteredEmail);
+
+//googleLogData.regEmail&&googleLogData.googleUserDataSub && 
+    if(filteredEmail.length===0){
+      alert('uspesno je dodato u bazu')
+      axios.post("http://localhost:3001/addUser", {
+        regEmail:googleLogData.regEmail&&googleLogData.regEmail,
+        regName:"",
+        regPassword:"" ,
+        regRepeatPassword:"",
+        googleUserDataSub:googleLogData.googleUserDataSub,
+        registrationDate: timeOfLogin,
+        lastLogin: "",
+        mojiOglasi:[],
+        poruke:"",
+        oglasiKojePratim:"",
+        pozitivneOcene: 0,
+        negativneOcene: 0,
+        
+      })
+      .then((response) => {
+        console.log(response);
+     
+      })
+      window.location.replace('http://localhost:3000/');
+    }else{
+      alert('korisnik vec postoji')
+    }
+
   }
 
 
-//   if(googleLogData.regEmail&&googleLogData.googleUserDataSub){
-//   axios.post("http://localhost:3001/addUser", {
-//     regEmail:googleLogData.regEmail&&googleLogData.regEmail,
-//     regName:"",
-//     regPassword:"" ,
-//     regRepeatPassword:"",
-//     googleUserDataSub:googleLogData.googleUserDataSub,
-//     registrationDate: timeOfLogin,
-//     lastLogin: "",
-//     mojiOglasi:[],
-//     poruke:"",
-//     oglasiKojePratim:"",
-//     pozitivneOcene: 0,
-//     negativneOcene: 0,
-    
-//   })
-//   .then((response) => {
-//     console.log(response);
- 
-//   })
-// }
 
-},[value.googleSingIn_hoverEnter,value.googleSingIn_hoverOut])
+
+},[googleLogData.regEmail&&googleLogData.regEmail])
 
 
   return (
