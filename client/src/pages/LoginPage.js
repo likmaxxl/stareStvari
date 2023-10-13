@@ -13,7 +13,7 @@ import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { StareStvariContext } from "../context";
 import axios from 'axios'
-import { useGoogleLogin } from "@react-oauth/google";
+// import { useGoogleLogin } from "@react-oauth/google";
 
 
 export default function LoginPage() {
@@ -21,105 +21,104 @@ export default function LoginPage() {
 
 
 //GOOGLE SIGN IN
-const timeOfLogin = new Date();
-const [googleLogData,setGoogleLogData]=useState(
-{  regEmail:'',
-  regName: "",
-  regPassword: "",
-  regRepeatPassword: "",
-  googleUserDataSub: '',
-  registrationDate: '',
-  mojiOglasi:[],
-  negativneOcene: 0,
-  pozitivneOcene: 0,
-  poruke: [],
-  oglasiKojePratim:[],
-  lastLogin: '',
-  rememberMe: false}
-)
-const login = useGoogleLogin({
-  onSuccess: async (response) => {
-    try {
-      const data = await axios.get(
-        "https://www.googleapis.com/oauth2/v3/userinfo",
-        {
-          headers: {
-            Authorization: `Bearer${response.access_token}`,
-          },
-        }
-      );
+// const timeOfLogin = new Date();
+// const [googleLogData,setGoogleLogData]=useState(
+// {  regEmail:'',
+//   regName: "",
+//   regPassword: "",
+//   regRepeatPassword: "",
+//   googleUserDataSub: '',
+//   registrationDate: '',
+//   mojiOglasi:[],
+//   negativneOcene: 0,
+//   pozitivneOcene: 0,
+//   poruke: [],
+//   oglasiKojePratim:[],
+//   lastLogin: '',
+//   rememberMe: false}
+// )
+// const login = useGoogleLogin({
+//   onSuccess: async (response) => {
+//     try {
+//       const data = await axios.get(
+//         "https://www.googleapis.com/oauth2/v3/userinfo",
+//         {
+//           headers: {
+//             Authorization: `Bearer${response.access_token}`,
+//           },
+//         }
+//       );
 
-      setGoogleLogData({
-        ...googleLogData,
-        regEmail: data.data.email,
-        regName: "",
-        regPassword: "",
-        regRepeatPassword: "",
-        googleUserDataSub: data.data.sub,
-        registrationDate: timeOfLogin,
-        mojiOglasi:[],
-        negativneOcene: 0,
-        pozitivneOcene: 0,
-        poruke: [],
-        oglasiKojePratim:[],
-        lastLogin: timeOfLogin,
-        rememberMe: false
-      });
+//       setGoogleLogData({
+//         ...googleLogData,
+//         regEmail: data.data.email,
+//         regName: "",
+//         regPassword: "",
+//         regRepeatPassword: "",
+//         googleUserDataSub: data.data.sub,
+//         registrationDate: timeOfLogin,
+//         mojiOglasi:[],
+//         negativneOcene: 0,
+//         pozitivneOcene: 0,
+//         poruke: [],
+//         oglasiKojePratim:[],
+//         lastLogin: timeOfLogin,
+//         rememberMe: false
+//       });
 
 
       
-console.log(data);
+// console.log(data);
 
-    } catch (err) {
-      console.log(err);
-    }
+//     } catch (err) {
+//       console.log(err);
+//     }
    
-  },
-});
+//   },
+// });
 
-useEffect(()=>{
-  if(googleLogData.regEmail){
-    // alert(googleLogData.regEmail&&googleLogData.regEmail);
-    console.log(googleLogData.regEmail+googleLogData.googleUserDataSub);
-    console.log(value.allDataFromDatabase);
-let filteredEmail=value.allDataFromDatabase&&value.allDataFromDatabase.filter(all=>{
-  return all.regEmail===googleLogData.regEmail
-})
-console.log(filteredEmail);
+// useEffect(()=>{
+//   if(googleLogData.regEmail){
+    
+//     console.log(googleLogData.regEmail+googleLogData.googleUserDataSub);
+//     console.log(value.allDataFromDatabase);
+// let filteredEmail=value.allDataFromDatabase&&value.allDataFromDatabase.filter(all=>{
+//   return all.regEmail===googleLogData.regEmail
+// })
+// console.log(filteredEmail);
 
-//googleLogData.regEmail&&googleLogData.googleUserDataSub && 
-    if(filteredEmail.length===0){
-      alert('uspesno je dodato u bazu')
-      axios.post("http://localhost:3001/addUser", {
-        regEmail:googleLogData.regEmail&&googleLogData.regEmail,
-        regName:"",
-        regPassword:"" ,
-        regRepeatPassword:"",
-        googleUserDataSub:googleLogData.googleUserDataSub,
-        registrationDate: timeOfLogin,
-        lastLogin: "",
-        mojiOglasi:[],
-        poruke:"",
-        oglasiKojePratim:"",
-        pozitivneOcene: 0,
-        negativneOcene: 0,
+//     if(filteredEmail.length===0){
+//       alert('uspesno je dodato u bazu')
+//       axios.post("http://localhost:3001/addUser", {
+//         regEmail:googleLogData.regEmail&&googleLogData.regEmail,
+//         regName:"",
+//         regPassword:"" ,
+//         regRepeatPassword:"",
+//         googleUserDataSub:googleLogData.googleUserDataSub,
+//         registrationDate: timeOfLogin,
+//         lastLogin: "",
+//         mojiOglasi:[],
+//         poruke:"",
+//         oglasiKojePratim:"",
+//         pozitivneOcene: 0,
+//         negativneOcene: 0,
         
-      })
-      .then((response) => {
-        console.log(response);
+//       })
+//       .then((response) => {
+//         console.log(response);
      
-      })
-      window.location.replace('http://localhost:3000/');
-    }else{
-      alert('korisnik vec postoji')
-    }
+//       })
+//       window.location.replace('http://localhost:3000/');
+//     }else{
+//       alert('korisnik vec postoji')
+//     }
 
-  }
-
-
+//   }
 
 
-},[googleLogData.regEmail&&googleLogData.regEmail])
+
+
+// },[googleLogData.regEmail&&googleLogData.regEmail])
 
 
   return (
@@ -269,7 +268,7 @@ console.log(filteredEmail);
                           letterSpacing: ".9px",
                           fontSize: "13px",
                         }}
-                        onClick={() => login()}
+                        onClick={() => value.login()}
                         onMouseEnter={value.googleSingIn_hoverEnter}
                         onMouseLeave={value.googleSingIn_hoverOut}
                       />

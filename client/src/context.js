@@ -4,18 +4,17 @@ import { SviGradovi } from "./json-files/SviGradovi";
 import axios from "axios";
 // import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { useGoogleLogin } from "@react-oauth/google"; //google login
 export const StareStvariContext = createContext("");
 
 export const StareStvariProvider = (props) => {
   //MEDIA QUERY FUNCTION ON WINDOW WIDTH
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-
   /*********************GET ALL DATA FROM DATABASE MONGO DB */
   const [allDataFromDatabase, setAllDataFromDatabase] = useState();
-  const[potvrdiBrisanje,setPotvrdiBrisanje]=useState(false)
-  const [googleBtnHover,setGoogleBtnHover]=useState(false)
+  const [potvrdiBrisanje, setPotvrdiBrisanje] = useState(false);
+  const [googleBtnHover, setGoogleBtnHover] = useState(false);
   const [user, setUser] = useState();
   useEffect(() => {
     let allData = "";
@@ -25,31 +24,24 @@ export const StareStvariProvider = (props) => {
       allData = res.data.data;
       setAllDataFromDatabase(allData);
     });
-  }, [user,potvrdiBrisanje,googleBtnHover]);
-console.log(allDataFromDatabase&&allDataFromDatabase);
+  }, [user, potvrdiBrisanje, googleBtnHover]);
+  console.log(allDataFromDatabase && allDataFromDatabase);
   /*********************END GET ALL DATA FROM DATABASE MONGO DB */
 
+  /**GET SVI OGLASI IZ BAZE */
 
-/**GET SVI OGLASI IZ BAZE */
+  const [sviOglasi, setSviOglasi] = useState();
+  useEffect(() => {
+    setLoading(true);
+    let allData = "";
+    axios.get(`http://localhost:3001/svi-oglasi`).then((res) => {
+      allData = res.data;
 
-const [sviOglasi, setSviOglasi] = useState();
-useEffect(()=>{
-  setLoading(true);
-  let allData=""
-  axios.get(`http://localhost:3001/svi-oglasi`).then((res) => {
-    allData = res.data; 
-  
-    setLoading(false);
-    setSviOglasi(allData&&allData.data);
-  });
-
-},[potvrdiBrisanje])
-/**END GET SVI OGLASI IZ BAZE */
-
-
-
-
-
+      setLoading(false);
+      setSviOglasi(allData && allData.data);
+    });
+  }, [potvrdiBrisanje]);
+  /**END GET SVI OGLASI IZ BAZE */
 
   useEffect(() => {
     function handleResize() {
@@ -133,20 +125,21 @@ useEffect(()=>{
     const sviOglasiCopy = sviOglasi && [...sviOglasi];
     const filteredData =
       sviOglasiCopy &&
-      sviOglasiCopy.filter((item) =>
-        pretragaPopunjenaPolja.vrstaOglasa.some(
-          (value) =>
-            item.izabranaKategorija.includes(value) ||
-            (item.cena >= pretragaPopunjenaPolja.cenaOd &&
-              item.cena <= pretragaPopunjenaPolja.cenaDo)
-        )
+      sviOglasiCopy.filter(
+        (item) =>
+          pretragaPopunjenaPolja &&
+          pretragaPopunjenaPolja.vrstaOglasa.some(
+            (value) =>
+              item.izabranaKategorija.includes(value) ||
+              (item.cena >= pretragaPopunjenaPolja.cenaOd &&
+                item.cena <= pretragaPopunjenaPolja.cenaDo)
+          )
       );
-  
+
     // console.log(pretragaPopunjenaPolja);
     // setSviOglasi(vrstaOglasa)
   }, [pretragaPopunjenaPolja.vrstaOglasa]);
 
- 
   //KADA SE KLIKNE NA PRETRAGU DOBIJAMO INFORMACIJE IZ SVIH INPUT POLJA
   const [vrednostiIzInputPoljaPretrage, setVrednostiIzInputPoljaPretrage] =
     useState();
@@ -154,7 +147,6 @@ useEffect(()=>{
   const pretragaOglasaClick = (e) => {
     e.preventDefault();
     setVrednostiIzInputPoljaPretrage(pretragaPopunjenaPolja);
-
 
     //ovo radi ali nije bas najbolje
     // for (let index = 0; index < pretragaPopunjenaPolja.vrstaOglasa.length; index++) {
@@ -204,15 +196,15 @@ useEffect(()=>{
     regName: "",
     regPassword: "",
     regRepeatPassword: "",
-    googleUserDataSub:"",
+    googleUserDataSub: "",
     registrationDate: "",
-    mojiOglasi:"",
+    mojiOglasi: "",
     negativneOcene: 0,
     pozitivneOcene: 0,
     poruke: [],
-    oglasiKojePratim:[],
+    oglasiKojePratim: [],
     lastLogin: "",
-    rememberMe: false
+    rememberMe: false,
   });
 
   //GOOGLE SIGN IN
@@ -246,10 +238,6 @@ useEffect(()=>{
   //         rememberMe: false
   //       });
 
-
-        
-
-
   //     } catch (err) {
   //       console.log(err);
   //     }
@@ -266,52 +254,38 @@ useEffect(()=>{
   //       oglasiKojePratim:"",
   //       pozitivneOcene: 0,
   //       negativneOcene: 0,
-        
+
   //     })
   //     .then((response) => {
   //       console.log(response);
-     
+
   //     })
   //   },
   // });
 
- 
+  //google login put data to database
 
-//google login put data to database
+  //on hover
+  const googleSingIn_hoverEnter = () => {
+    setGoogleBtnHover(true);
+  };
 
+  const googleSingIn_hoverOut = () => {
+    setGoogleBtnHover(false);
+  };
 
+  console.log(googleBtnHover);
 
-//on hover
-const googleSingIn_hoverEnter = () => {
-  setGoogleBtnHover(true);
-};
+  // useEffect(()=>{
+  // console.log(allDataFromDatabase&&allDataFromDatabase);
 
-const googleSingIn_hoverOut = () => {
-  setGoogleBtnHover(false);
-};
+  // if(logUserData.regEmail!="" && logUserData.googleUserDataSub!=""){
 
-console.log(googleBtnHover);
+  // }
 
-// useEffect(()=>{
-// console.log(allDataFromDatabase&&allDataFromDatabase);
+  // },[logUserData.regEmail])
 
-
-
-
-// if(logUserData.regEmail!="" && logUserData.googleUserDataSub!=""){
-
-// }
-
-
-// },[logUserData.regEmail])
-
-
-
-
-
-
-
-//LOGIN CUSTOM USERNAME AND PASSWORD
+  //LOGIN CUSTOM USERNAME AND PASSWORD
   const [loginDetails, setLoginDetails] = useState({
     loginEmail: "",
     loginPassword: "",
@@ -380,10 +354,10 @@ console.log(googleBtnHover);
         setMojiOglasi(filteredData && filteredData[0].mojiOglasi);
       }
     }
-  }, [allDataFromDatabase,potvrdiBrisanje]);
-// console.log(allDataFromDatabase&&allDataFromDatabase);
- 
-//CUSTOM LOGIN SUBMIT BUTTON
+  }, [allDataFromDatabase, potvrdiBrisanje]);
+  // console.log(allDataFromDatabase&&allDataFromDatabase);
+
+  //CUSTOM LOGIN SUBMIT BUTTON
   const [errorAuthLogIn, setErrorAuthLogIn] = useState(false);
   const navigate = useNavigate();
 
@@ -456,13 +430,139 @@ console.log(googleBtnHover);
 
   /********************END SIGN IN***********/
 
-  /**POTVRDA BRISANJA OGLASA (DRUGA FN DA BI SE AUTOMATSKI OCITALO STANJE IZ BAZE) */
+  //GOOGLE SIGN IN
+  // const timeOfLogin = new Date();
+  const [googleLogData, setGoogleLogData] = useState({
+    regEmail: "",
+    regName: "",
+    regPassword: "",
+    regRepeatPassword: "",
+    googleUserDataSub: "",
+    registrationDate: "",
+    mojiOglasi: [],
+    negativneOcene: 0,
+    pozitivneOcene: 0,
+    poruke: [],
+    oglasiKojePratim: [],
+    lastLogin: "",
+    rememberMe: false,
+  });
+  const login = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        setLoading(true);
+        const data = await axios.get(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer${response.access_token}`,
+            },
+          }
+        );
 
-const potvrdaBrisanja=()=>{
-  setPotvrdiBrisanje(!potvrdiBrisanje)
+        setGoogleLogData({
+          ...googleLogData,
+          regEmail: data.data.email,
+          regName: "",
+          regPassword: "",
+          regRepeatPassword: "",
+          googleUserDataSub: data.data.sub,
+          registrationDate: timeOfLogin,
+          mojiOglasi: [],
+          negativneOcene: 0,
+          pozitivneOcene: 0,
+          poruke: [],
+          oglasiKojePratim: [],
+          lastLogin: timeOfLogin,
+          rememberMe: false,
+        });
+
+        let filteredEmail =
+          allDataFromDatabase &&
+          allDataFromDatabase.filter((all) => {
+            return all.regEmail === data.data.email;
+          });
+        console.log(filteredEmail);
+
+        const user = {
+          email: data.data.email,
+          id: filteredEmail && filteredEmail.length > 0 && filteredEmail[0]._id,
+        };
+        console.log(user.id);
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
+        setErrorAuthLogIn("ok");
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (googleLogData.regEmail) {
+      console.log(googleLogData.regEmail + googleLogData.googleUserDataSub);
+      console.log(allDataFromDatabase);
+      let filteredEmail =
+        allDataFromDatabase &&
+        allDataFromDatabase.filter((all) => {
+          return all.regEmail === googleLogData.regEmail;
+        });
+      console.log(filteredEmail);
+
+      if (filteredEmail.length === 0) {
+        axios
+          .post("http://localhost:3001/addUser", {
+            regEmail: googleLogData.regEmail && googleLogData.regEmail,
+            regName: "",
+            regPassword: "",
+            regRepeatPassword: "",
+            googleUserDataSub: googleLogData.googleUserDataSub,
+            registrationDate: timeOfLogin,
+            lastLogin: "",
+            mojiOglasi: [],
+            poruke: "",
+            oglasiKojePratim: "",
+            pozitivneOcene: 0,
+            negativneOcene: 0,
+          })
+          .then((response) => {
+            console.log(response);
+          });
+
+        window.location.replace("http://localhost:3000/");
+      } else {
+        // alert('korisnik vec postoji')
+      }
+    }
+  }, [googleLogData.regEmail && googleLogData.regEmail]);
+
+
+
+useEffect(()=>{
+  let filteredEmail11=allDataFromDatabase&&allDataFromDatabase.filter(all=>{
+    return all.regEmail===googleLogData.regEmail
+  })
+if(googleLogData.regEmail){
+
+
+  const user = {
+    email: googleLogData.regEmail&&googleLogData.regEmail,
+    id:filteredEmail11 && filteredEmail11.length > 0 && filteredEmail11[0]._id,
+  };
+  console.log(user.id);
+  setUser(user)
+  localStorage.setItem("user", JSON.stringify(user));
 }
-  /**END POTVRDA BRISANJA PGLASA  */
+},[])
 
+
+  /**POTVRDA BRISANJA PGLASA (DRUGA FN DA BI SE AUTOMATSKI OCITALO STANJE IZ BAZE) */
+
+  const potvrdaBrisanja = () => {
+    setPotvrdiBrisanje(!potvrdiBrisanje);
+  };
+  /**END POTVRDA BRISANJA PGLASA  */
 
   /************SHOW/HIDE PASSWORD LOGIN/SIGNUP PAGE*************/
   const [signupShowHidePassword, setShowHidePassword] = useState(false);
@@ -605,6 +705,8 @@ const potvrdaBrisanja=()=>{
           izlogujSeBtnClick,
           //POTVRDA BRISANJA OGLASA
           potvrdaBrisanja,
+          //GOOGLE LOGIN
+          login,
           //ULOGUJTE SE PUTEM G_MAILA HOVER
           googleSingIn_hoverEnter,
           googleSingIn_hoverOut,

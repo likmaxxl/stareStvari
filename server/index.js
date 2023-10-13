@@ -94,6 +94,7 @@ app.post("/postavi-oglas/:id", async (req, res) => {
   try{
     await User.updateOne(
       { _id: req.params.id },
+     
       { $push: { mojiOglasi: req.body.postaviOglasPolja } }
    
     );
