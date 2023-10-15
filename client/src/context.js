@@ -15,6 +15,8 @@ export const StareStvariProvider = (props) => {
   const [allDataFromDatabase, setAllDataFromDatabase] = useState();
   const [potvrdiBrisanje, setPotvrdiBrisanje] = useState(false);
   const [googleBtnHover, setGoogleBtnHover] = useState(false);
+    //CUSTOM LOGIN SUBMIT BUTTON
+    const [errorAuthLogIn, setErrorAuthLogIn] = useState(false);
   const [user, setUser] = useState();
   useEffect(() => {
     let allData = "";
@@ -24,7 +26,7 @@ export const StareStvariProvider = (props) => {
       allData = res.data.data;
       setAllDataFromDatabase(allData);
     });
-  }, [user, potvrdiBrisanje, googleBtnHover]);
+  }, [user, potvrdiBrisanje, googleBtnHover,errorAuthLogIn]);
   console.log(allDataFromDatabase && allDataFromDatabase);
   /*********************END GET ALL DATA FROM DATABASE MONGO DB */
 
@@ -350,15 +352,14 @@ export const StareStvariProvider = (props) => {
         allDataFromDatabase &&
         allDataFromDatabase.filter((all) => all.regEmail === user.email);
       if (allDataFromDatabase && allDataFromDatabase.length > 0) {
-        setCurrentUserData(filteredData);
+        setCurrentUserData(filteredData&&filteredData);
         setMojiOglasi(filteredData && filteredData[0].mojiOglasi);
       }
     }
   }, [allDataFromDatabase, potvrdiBrisanje]);
   // console.log(allDataFromDatabase&&allDataFromDatabase);
 
-  //CUSTOM LOGIN SUBMIT BUTTON
-  const [errorAuthLogIn, setErrorAuthLogIn] = useState(false);
+
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -447,6 +448,7 @@ export const StareStvariProvider = (props) => {
     lastLogin: "",
     rememberMe: false,
   });
+  
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       try {
@@ -501,6 +503,7 @@ export const StareStvariProvider = (props) => {
 
   useEffect(() => {
     if (googleLogData.regEmail) {
+      setLoading(true)
       console.log(googleLogData.regEmail + googleLogData.googleUserDataSub);
       console.log(allDataFromDatabase);
       let filteredEmail =
@@ -529,32 +532,44 @@ export const StareStvariProvider = (props) => {
           .then((response) => {
             console.log(response);
           });
+          setLoading(false)
 
         window.location.replace("http://localhost:3000/");
+       
       } else {
         // alert('korisnik vec postoji')
       }
     }
   }, [googleLogData.regEmail && googleLogData.regEmail]);
+  let path = window.location.pathname;
+  useEffect(()=>{
+    setLoading(true)
+    if (user){
 
+    let filteredEmail =
+    allDataFromDatabase &&
+    allDataFromDatabase.filter((all) => {
+      return all.regEmail ===  user.email;
 
-
-useEffect(()=>{
-  let filteredEmail11=allDataFromDatabase&&allDataFromDatabase.filter(all=>{
-    return all.regEmail===googleLogData.regEmail
-  })
-if(googleLogData.regEmail){
-
-
-  const user = {
-    email: googleLogData.regEmail&&googleLogData.regEmail,
-    id:filteredEmail11 && filteredEmail11.length > 0 && filteredEmail11[0]._id,
+    });
+    
+  const user1 = {
+    email:  user&&user.email,
+    id: filteredEmail && filteredEmail.length > 0 && filteredEmail[0]._id,
   };
-  console.log(user.id);
-  setUser(user)
-  localStorage.setItem("user", JSON.stringify(user));
+  setUser(user1);
+  if(user1&&user1.id){
+    localStorage.setItem("user", JSON.stringify(user1));
+  }
+  console.log(filteredEmail);
 }
-},[])
+
+setLoading(false)
+console.log(errorAuthLogIn);
+
+},[allDataFromDatabase&&allDataFromDatabase.length,path])
+
+
 
 
   /**POTVRDA BRISANJA PGLASA (DRUGA FN DA BI SE AUTOMATSKI OCITALO STANJE IZ BAZE) */
