@@ -15,8 +15,8 @@ export const StareStvariProvider = (props) => {
   const [allDataFromDatabase, setAllDataFromDatabase] = useState();
   const [potvrdiBrisanje, setPotvrdiBrisanje] = useState(false);
   const [googleBtnHover, setGoogleBtnHover] = useState(false);
-    //CUSTOM LOGIN SUBMIT BUTTON
-    const [errorAuthLogIn, setErrorAuthLogIn] = useState(false);
+  //CUSTOM LOGIN SUBMIT BUTTON
+  const [errorAuthLogIn, setErrorAuthLogIn] = useState(false);
   const [user, setUser] = useState();
   useEffect(() => {
     let allData = "";
@@ -26,8 +26,8 @@ export const StareStvariProvider = (props) => {
       allData = res.data.data;
       setAllDataFromDatabase(allData);
     });
-  }, [user, potvrdiBrisanje, googleBtnHover,errorAuthLogIn]);
-  console.log(allDataFromDatabase && allDataFromDatabase);
+  }, [user, potvrdiBrisanje, googleBtnHover, errorAuthLogIn]);
+  // console.log(allDataFromDatabase && allDataFromDatabase);
   /*********************END GET ALL DATA FROM DATABASE MONGO DB */
 
   /**GET SVI OGLASI IZ BAZE */
@@ -276,8 +276,6 @@ export const StareStvariProvider = (props) => {
     setGoogleBtnHover(false);
   };
 
-  console.log(googleBtnHover);
-
   // useEffect(()=>{
   // console.log(allDataFromDatabase&&allDataFromDatabase);
 
@@ -352,13 +350,12 @@ export const StareStvariProvider = (props) => {
         allDataFromDatabase &&
         allDataFromDatabase.filter((all) => all.regEmail === user.email);
       if (allDataFromDatabase && allDataFromDatabase.length > 0) {
-        setCurrentUserData(filteredData&&filteredData);
+        setCurrentUserData(filteredData && filteredData);
         setMojiOglasi(filteredData && filteredData[0].mojiOglasi);
       }
     }
   }, [allDataFromDatabase, potvrdiBrisanje]);
   // console.log(allDataFromDatabase&&allDataFromDatabase);
-
 
   const navigate = useNavigate();
 
@@ -448,7 +445,7 @@ export const StareStvariProvider = (props) => {
     lastLogin: "",
     rememberMe: false,
   });
-  
+
   const login = useGoogleLogin({
     onSuccess: async (response) => {
       try {
@@ -484,13 +481,12 @@ export const StareStvariProvider = (props) => {
           allDataFromDatabase.filter((all) => {
             return all.regEmail === data.data.email;
           });
-        console.log(filteredEmail);
 
         const user = {
           email: data.data.email,
           id: filteredEmail && filteredEmail.length > 0 && filteredEmail[0]._id,
         };
-        console.log(user.id);
+
         setUser(user);
         localStorage.setItem("user", JSON.stringify(user));
         setErrorAuthLogIn("ok");
@@ -503,15 +499,13 @@ export const StareStvariProvider = (props) => {
 
   useEffect(() => {
     if (googleLogData.regEmail) {
-      setLoading(true)
-      console.log(googleLogData.regEmail + googleLogData.googleUserDataSub);
-      console.log(allDataFromDatabase);
+      setLoading(true);
+
       let filteredEmail =
         allDataFromDatabase &&
         allDataFromDatabase.filter((all) => {
           return all.regEmail === googleLogData.regEmail;
         });
-      console.log(filteredEmail);
 
       if (filteredEmail.length === 0) {
         axios
@@ -532,45 +526,38 @@ export const StareStvariProvider = (props) => {
           .then((response) => {
             console.log(response);
           });
-          setLoading(false)
+        setLoading(false);
 
         window.location.replace("http://localhost:3000/");
-       
       } else {
         // alert('korisnik vec postoji')
       }
     }
   }, [googleLogData.regEmail && googleLogData.regEmail]);
   let path = window.location.pathname;
-  useEffect(()=>{
-    setLoading(true)
-    if (user){
+  useEffect(() => {
+    setLoading(true);
+    if (user) {
+      let filteredEmail =
+        allDataFromDatabase &&
+        allDataFromDatabase.filter((all) => {
+          return all.regEmail === user.email;
+        });
 
-    let filteredEmail =
-    allDataFromDatabase &&
-    allDataFromDatabase.filter((all) => {
-      return all.regEmail ===  user.email;
+      const user1 = {
+        email: user && user.email,
+        id: filteredEmail && filteredEmail.length > 0 && filteredEmail[0]._id,
+      };
+      setUser(user1);
+      if (user1 && user1.id) {
+        localStorage.setItem("user", JSON.stringify(user1));
+      }
+      console.log(filteredEmail);
+    }
 
-    });
-    
-  const user1 = {
-    email:  user&&user.email,
-    id: filteredEmail && filteredEmail.length > 0 && filteredEmail[0]._id,
-  };
-  setUser(user1);
-  if(user1&&user1.id){
-    localStorage.setItem("user", JSON.stringify(user1));
-  }
-  console.log(filteredEmail);
-}
-
-setLoading(false)
-console.log(errorAuthLogIn);
-
-},[allDataFromDatabase&&allDataFromDatabase.length,path])
-
-
-
+    setLoading(false);
+    console.log(errorAuthLogIn);
+  }, [allDataFromDatabase && allDataFromDatabase.length, path]);
 
   /**POTVRDA BRISANJA PGLASA (DRUGA FN DA BI SE AUTOMATSKI OCITALO STANJE IZ BAZE) */
 
@@ -647,6 +634,28 @@ console.log(errorAuthLogIn);
   };
 
   /*****************************END MOJ PROFIL SHOW***************/
+
+  /************************DODAJ/OBRISI U LISTU PRACENJA */
+  const [heartCheck, setHeartCheck] = useState(false);
+  const pratiOglas = (e) => {
+    let boolean = !heartCheck;
+    setHeartCheck(boolean);
+    console.log(e.target);
+    let getIdFromCurrentAds = e.target.getAttribute("id");
+
+    const checkedAds = sviOglasi.filter((all) => {
+      return all._id === getIdFromCurrentAds;
+    });
+
+    console.log(checkedAds);
+    if (boolean === true) {
+      console.log("Dodato u listu");
+    } else {
+      console.log("Obrisano sa Liste");
+    }
+  };
+  console.log(heartCheck);
+  /************************END DODAJ/OBRISI U LISTU PRACENJA */
 
   return (
     <>
@@ -725,6 +734,9 @@ console.log(errorAuthLogIn);
           //ULOGUJTE SE PUTEM G_MAILA HOVER
           googleSingIn_hoverEnter,
           googleSingIn_hoverOut,
+          //PRATI OGLAS
+          pratiOglas,
+          heartCheck,
         }}
       >
         {props.children}

@@ -30,7 +30,7 @@ const userDataSchema = new mongoose.Schema({
     zamena:Boolean
   }],
   poruke:String,
-  oglasiKojePratim:String,
+  oglasiKojePratim:Array,
   pozitivneOcene:Number,
   negativneOcene:Number,
   },

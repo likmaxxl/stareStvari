@@ -39,16 +39,21 @@ export  function OglasGrid(sviOglasi) {
             <div className="top">
               <div className="infoView">
                 <div className="followBtns">
-                  <FormControlLabel
+                  {/* <FormControlLabel
                   onClick={value.pratiOglas}
                     label="Prati"
                     control={
                       <Checkbox
-                        icon={<FavoriteBorder />}
-                        checkedIcon={<Favorite />}
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite />}
                       />
                     }
-                  />
+                    
+                  /> */}
+                  <div className="pratiOglas">
+                  <span>Prati</span>
+                  <Checkbox id={sviOglasi._id} onClick={value.pratiOglas} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>
+                  </div>
                   <Button
                     id="basic-button"
                     aria-controls={value.open ? "basic-menu" : undefined}
