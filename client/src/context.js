@@ -498,8 +498,9 @@ export const StareStvariProvider = (props) => {
   });
 
   useEffect(() => {
+    setLoading(true);
     if (googleLogData.regEmail) {
-      setLoading(true);
+     
 
       let filteredEmail =
         allDataFromDatabase &&
@@ -519,7 +520,7 @@ export const StareStvariProvider = (props) => {
             lastLogin: "",
             mojiOglasi: [],
             poruke: "",
-            oglasiKojePratim: "",
+            oglasiKojePratim: [],
             pozitivneOcene: 0,
             negativneOcene: 0,
           })
@@ -534,6 +535,7 @@ export const StareStvariProvider = (props) => {
       }
     }
   }, [googleLogData.regEmail && googleLogData.regEmail]);
+  
   let path = window.location.pathname;
   useEffect(() => {
     setLoading(true);
@@ -559,12 +561,15 @@ export const StareStvariProvider = (props) => {
     console.log(errorAuthLogIn);
   }, [allDataFromDatabase && allDataFromDatabase.length, path]);
 
-  /**POTVRDA BRISANJA PGLASA (DRUGA FN DA BI SE AUTOMATSKI OCITALO STANJE IZ BAZE) */
+  /**POTVRDA BRISANJA OGLASA (DRUGA FN DA BI SE AUTOMATSKI OCITALO STANJE IZ BAZE) */
 
   const potvrdaBrisanja = () => {
     setPotvrdiBrisanje(!potvrdiBrisanje);
   };
-  /**END POTVRDA BRISANJA PGLASA  */
+  /**END POTVRDA BRISANJA OGLASA  */
+
+
+
 
   /************SHOW/HIDE PASSWORD LOGIN/SIGNUP PAGE*************/
   const [signupShowHidePassword, setShowHidePassword] = useState(false);
@@ -637,6 +642,7 @@ export const StareStvariProvider = (props) => {
 
   /************************DODAJ/OBRISI U LISTU PRACENJA */
   const [heartCheck, setHeartCheck] = useState(false);
+
   const pratiOglas = (e) => {
     let boolean = !heartCheck;
     setHeartCheck(boolean);
@@ -646,8 +652,21 @@ export const StareStvariProvider = (props) => {
     const checkedAds = sviOglasi.filter((all) => {
       return all._id === getIdFromCurrentAds;
     });
-
+  
+  const currentUser=allDataFromDatabase.filter((all)=>{
+    return user.email===all.regEmail && user.id===all._id
+  })
+  console.log(user);
+console.log(currentUser);
     console.log(checkedAds);
+
+    axios.post(`http://localhost:3001/pratim/${user.id}`,{
+      oglasiKojePratim:checkedAds
+    })
+    .then((response) => {
+      console.log(response);
+    });
+
     if (boolean === true) {
       console.log("Dodato u listu");
     } else {

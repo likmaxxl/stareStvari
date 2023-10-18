@@ -105,6 +105,26 @@ app.post("/postavi-oglas/:id", async (req, res) => {
 
 });
 
+
+
+//DODAVANJE U LISTU PRACENJA
+app.post("/pratim/:id", async (req, res) => {
+  try{
+    await User.updateOne(
+      { _id: req.params.id },
+     
+      { $push: { oglasiKojePratim: req.body.oglasiKojePratim} }
+   
+    );
+   
+  }catch{
+    console.log('greska');
+  }
+
+});
+
+
+
 //GET KORISNIKOVI OGLASI
 // app.get("/moji-oglasi/:id",async(req,res)=>{
 //   try{

@@ -117,7 +117,7 @@ console.log(formRef.current);
     const testPattern = pattern.test(registracijaDetails.regPassword);
 
     if (testPattern) {
-      if (duplicateEmail&&duplicateEmail.length === 0 && duplicateEmail!=="undefined") {
+      if (duplicateEmail&&duplicateEmail.length === 0 && duplicateEmail!="undefined") {
         setLoading(true);
         setErrorAuth("ok");
 
@@ -132,7 +132,7 @@ console.log(formRef.current);
             lastLogin: "",
             mojiOglasi:[],
             poruke:"",
-            oglasiKojePratim:"",
+            oglasiKojePratim:[],
             pozitivneOcene: 0,
             negativneOcene: 0,
             
@@ -227,6 +227,7 @@ console.log(formRef.current);
       setDuplicateEmail(filteredUsers);
       console.log(filteredUsers);
     }
+    console.log(allDataGetFromDb);
   }, [registracijaDetails.regEmail]);
 
   console.log(registracijaDetails.regEmail);
