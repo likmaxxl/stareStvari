@@ -11,10 +11,10 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { StareStvariContext } from "../context";
 
-export  function OglasGrid(sviOglasi) {
+export function OglasGrid(sviOglasi) {
   const value = useContext(StareStvariContext);
-// const {datum,mesec,grad,naslovOglasa,cena,valuta,textOglasa,pregleda,hitno,uploadedImages
-// }=all
+  // const {datum,mesec,grad,naslovOglasa,cena,valuta,textOglasa,pregleda,hitno,uploadedImages
+  // }=all
   // const [anchorEl, setAnchorEl] = React.useState(null);
   // const open = Boolean(anchorEl);
   // const handleClick = (event) => {
@@ -30,12 +30,18 @@ export  function OglasGrid(sviOglasi) {
         <div className="card">
           <a href="#">
             <img
-              src={sviOglasi.uploadedImages&&sviOglasi.uploadedImages.length>0?sviOglasi.uploadedImages[0].data_url:'../../images/nema_slike.jpg'}
+              src={
+                sviOglasi.uploadedImages && sviOglasi.uploadedImages.length > 0
+                  ? sviOglasi.uploadedImages[0].data_url
+                  : "../../images/nema_slike.jpg"
+              }
               alt="slika"
             />
           </a>
           <div className="info">
-              <div className="date">{sviOglasi.datum+'. '+sviOglasi.mesec}</div>
+            <div className="date">
+              {sviOglasi.datum + ". " + sviOglasi.mesec}
+            </div>
             <div className="top">
               <div className="infoView">
                 <div className="followBtns">
@@ -51,8 +57,24 @@ export  function OglasGrid(sviOglasi) {
                     
                   /> */}
                   <div className="pratiOglas">
-                  <span>Prati</span>
-                  <Checkbox id={sviOglasi._id} onClick={value.pratiOglas} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>
+                    {value.user && value.user.email ? (
+                      <>
+                        {" "}
+                        <span>Prati</span>{" "}
+                        <Checkbox
+                          id={sviOglasi._id}
+                          onClick={value.pratiOglas}
+                          icon={<FavoriteBorder />}
+                          checkedIcon={<Favorite />}
+                          disabled={
+                            value.user &&
+                            value.user.email === sviOglasi.imeKorisnika
+                          }
+                        />{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <Button
                     id="basic-button"
@@ -88,24 +110,29 @@ export  function OglasGrid(sviOglasi) {
                 {" "}
                 <a href="#">{sviOglasi.naslovOglasa}</a>{" "}
               </div>
-              <div className="price">{sviOglasi.cena}{sviOglasi.valuta}</div>
+              <div className="price">
+                {sviOglasi.cena}
+                {sviOglasi.valuta}
+              </div>
             </div>
             <div className="citty">{sviOglasi.grad}</div>
             {value.windowWidth > 768 ? (
-              <div className="description">
-                {sviOglasi.textOglasa}
-              </div>
+              <div className="description">{sviOglasi.textOglasa}</div>
             ) : (
               ""
             )}
           </div>
-          
-          {sviOglasi.hitno?<div className="hitnoBanner">
-            <span className="neon">
-              H<span className="flicker-slow">I</span>T
-              <span className="flicker-fast">N</span>O
-            </span>
-          </div>:""}
+
+          {sviOglasi.hitno ? (
+            <div className="hitnoBanner">
+              <span className="neon">
+                H<span className="flicker-slow">I</span>T
+                <span className="flicker-fast">N</span>O
+              </span>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

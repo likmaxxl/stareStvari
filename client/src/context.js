@@ -554,7 +554,7 @@ export const StareStvariProvider = (props) => {
       if (user1 && user1.id) {
         localStorage.setItem("user", JSON.stringify(user1));
       }
-      console.log(filteredEmail);
+      console.log(filteredEmail&&filteredEmail.mojiOglasi);
     }
 
     setLoading(false);
@@ -642,10 +642,11 @@ export const StareStvariProvider = (props) => {
 
   /************************DODAJ/OBRISI U LISTU PRACENJA */
   const [heartCheck, setHeartCheck] = useState(false);
-
+  const [oglasiKojePratim,setOglasiKojePratim]=useState()
   const pratiOglas = (e) => {
     let boolean = !heartCheck;
     setHeartCheck(boolean);
+
     console.log(e.target);
     let getIdFromCurrentAds = e.target.getAttribute("id");
 
@@ -656,19 +657,20 @@ export const StareStvariProvider = (props) => {
   const currentUser=allDataFromDatabase.filter((all)=>{
     return user.email===all.regEmail && user.id===all._id
   })
-  console.log(user);
+//   console.log(user);
 console.log(currentUser);
     console.log(checkedAds);
-
-    axios.post(`http://localhost:3001/pratim/${user.id}`,{
-      oglasiKojePratim:checkedAds
-    })
-    .then((response) => {
-      console.log(response);
-    });
-
+console.log(sviOglasi);
+    const isDouble = sviOglasi&&sviOglasi.some(obj => obj._id === checkedAds&&checkedAds[0]._id);
+console.log(isDouble);
     if (boolean === true) {
       console.log("Dodato u listu");
+      // axios.post(`http://localhost:3001/pratim/${user.id}`,{
+      //   oglasiKojePratim:checkedAds
+      // })
+      // .then((response) => {
+      //   console.log(response);
+      // });
     } else {
       console.log("Obrisano sa Liste");
     }
@@ -676,6 +678,8 @@ console.log(currentUser);
   console.log(heartCheck);
   /************************END DODAJ/OBRISI U LISTU PRACENJA */
 
+
+  
   return (
     <>
       <StareStvariContext.Provider
