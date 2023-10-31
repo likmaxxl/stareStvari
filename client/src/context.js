@@ -163,16 +163,16 @@ export const StareStvariProvider = (props) => {
   // console.log(vrednostiIzInputPoljaPretrage);
 
   /**********************SHARE ****************/
-  // const [anchorEl, setAnchorEl] = useState(null);
-  // const open = Boolean(anchorEl);
-  // const handleClick = (event) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-  // const handleClose = (e) => {
-  //   e.preventDefault()
-  //   setAnchorEl(null);
-  //   console.log('deleted');
-  // };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = (e) => {
+    e.preventDefault();
+    setAnchorEl(null);
+    console.log("deleted");
+  };
 
   /**********************END SHARE ****************/
 
@@ -500,8 +500,6 @@ export const StareStvariProvider = (props) => {
   useEffect(() => {
     setLoading(true);
     if (googleLogData.regEmail) {
-     
-
       let filteredEmail =
         allDataFromDatabase &&
         allDataFromDatabase.filter((all) => {
@@ -535,7 +533,7 @@ export const StareStvariProvider = (props) => {
       }
     }
   }, [googleLogData.regEmail && googleLogData.regEmail]);
-  
+
   let path = window.location.pathname;
   useEffect(() => {
     setLoading(true);
@@ -554,7 +552,7 @@ export const StareStvariProvider = (props) => {
       if (user1 && user1.id) {
         localStorage.setItem("user", JSON.stringify(user1));
       }
-      console.log(filteredEmail&&filteredEmail.mojiOglasi);
+      console.log(filteredEmail && filteredEmail.mojiOglasi);
     }
 
     setLoading(false);
@@ -567,9 +565,6 @@ export const StareStvariProvider = (props) => {
     setPotvrdiBrisanje(!potvrdiBrisanje);
   };
   /**END POTVRDA BRISANJA OGLASA  */
-
-
-
 
   /************SHOW/HIDE PASSWORD LOGIN/SIGNUP PAGE*************/
   const [signupShowHidePassword, setShowHidePassword] = useState(false);
@@ -642,7 +637,7 @@ export const StareStvariProvider = (props) => {
 
   /************************DODAJ/OBRISI U LISTU PRACENJA */
   const [heartCheck, setHeartCheck] = useState(false);
-  const [oglasiKojePratim,setOglasiKojePratim]=useState()
+  const [oglasiKojePratim, setOglasiKojePratim] = useState();
   const pratiOglas = (e) => {
     let boolean = !heartCheck;
     setHeartCheck(boolean);
@@ -653,33 +648,67 @@ export const StareStvariProvider = (props) => {
     const checkedAds = sviOglasi.filter((all) => {
       return all._id === getIdFromCurrentAds;
     });
-  
-  const currentUser=allDataFromDatabase.filter((all)=>{
-    return user.email===all.regEmail && user.id===all._id
-  })
-//   console.log(user);
-console.log(currentUser);
+
+    const currentUser =
+      allDataFromDatabase &&
+      allDataFromDatabase.filter((all) => {
+        return user.email === all.regEmail && user.id === all._id;
+      });
+    //   console.log(user);
+    console.log(currentUser);
     console.log(checkedAds);
-console.log(sviOglasi);
-    const isDouble = sviOglasi&&sviOglasi.some(obj => obj._id === checkedAds&&checkedAds[0]._id);
-console.log(isDouble);
+    console.log(sviOglasi);
+    //     const isDouble = sviOglasi&&sviOglasi.some(obj => obj._id === checkedAds&&checkedAds[0]._id);
+    // console.log(isDouble);
+
     if (boolean === true) {
       console.log("Dodato u listu");
-      // axios.post(`http://localhost:3001/pratim/${user.id}`,{
-      //   oglasiKojePratim:checkedAds
-      // })
-      // .then((response) => {
-      //   console.log(response);
-      // });
+      setLoading(true);
+      axios.post(`http://localhost:3001/pratim/${user.id}`,{
+        oglasiKojePratim:checkedAds
+      })
+      .then((response) => {
+
+      });
     } else {
       console.log("Obrisano sa Liste");
     }
+    setLoading(false);
   };
-  console.log(heartCheck);
+  console.log(loading);
+
+  const [userOglasiKojePratim, setUserOglasiKojePratim] = useState("");
+
+  useEffect(() => {
+    let currentUser =
+      allDataFromDatabase &&
+      allDataFromDatabase.filter((all) => {
+        return user&&user.email === all.regEmail && user.id === all._id;
+      });
+    let currentUserOglasiKojePratim =
+      currentUser &&
+      currentUser.map((all) => {
+        return all.oglasiKojePratim;
+      }, []);
+ //Lista duplikata poredjenje svi oglasi i oglasi koje pratim
+    const list1Ids = new Set(sviOglasi && sviOglasi.map((item) => item._id));
+    const duplicateItems =
+      currentUserOglasiKojePratim &&currentUserOglasiKojePratim.length>0&&
+      currentUserOglasiKojePratim[0].filter((item) => list1Ids.has(item._id));
+
+    console.log(duplicateItems && duplicateItems);
+
+    setUserOglasiKojePratim(
+      currentUserOglasiKojePratim && currentUserOglasiKojePratim[0]
+    );
+  }, [allDataFromDatabase && allDataFromDatabase, heartCheck]);
+
+  console.log(userOglasiKojePratim);
+
+
+
   /************************END DODAJ/OBRISI U LISTU PRACENJA */
 
-
-  
   return (
     <>
       <StareStvariContext.Provider
@@ -704,10 +733,10 @@ console.log(isDouble);
           hitnoOnClickNavigacija,
           trenutniKliknutiElement,
           //SHARE BUTTONS U OGLASIMA
-          // anchorEl,
-          // open,
-          // handleClick,
-          // handleClose,
+          anchorEl,
+          open,
+          handleClick,
+          handleClose,
           //LOGIN SIGN UP SHOW HIDE PASSWORD EYE
           signupShowHidePassword,
           signupShowHideConfirm,
@@ -760,6 +789,8 @@ console.log(isDouble);
           //PRATI OGLAS
           pratiOglas,
           heartCheck,
+          userOglasiKojePratim,
+         
         }}
       >
         {props.children}

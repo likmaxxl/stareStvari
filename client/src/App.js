@@ -88,7 +88,7 @@ function App() {
             }
           ></Route>
            <Route
-          path="/pratim"
+          path="/pratim/:id"
           element={
             <ProtectedRoute>
               <OglasiKojePratim />

@@ -5,6 +5,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import "../scss/_oglasGrid.scss";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -65,7 +66,10 @@ export function OglasGrid(sviOglasi) {
                           id={sviOglasi._id}
                           onClick={value.pratiOglas}
                           icon={<FavoriteBorder />}
-                          checkedIcon={<Favorite />}
+
+                          checkedIcon={<Favorite/>}
+
+                          
                           disabled={
                             value.user &&
                             value.user.email === sviOglasi.imeKorisnika

@@ -68,7 +68,7 @@ export default function MojProfilMenu() {
                 </Link>
               </li>
               <li>
-                <Link to="/pratim" onClick={value.linkClickCloseNav}>
+                <Link to={`/pratim/${value.user&&value.user.id}`} onClick={value.linkClickCloseNav}>
                   {" "}
                   <span>
                     <Favorite />

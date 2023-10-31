@@ -124,6 +124,25 @@ app.post("/pratim/:id", async (req, res) => {
 });
 
 
+/*************OGLASI KOJE PRATIM OBRISI */
+app.delete("/pratim/:idUser/:trenutniOglasKojiPratim", async (req, res) => {
+
+  try {
+    await User.updateOne(
+      { _id:req.params.idUser },
+      { $pull: { oglasiKojePratim: { _id:req.params.trenutniOglasKojiPratim} } }
+    );
+
+    res.status(200).json({ message: "Objekat uspešno obrisan." });
+    console.log(req.body.idUser)
+  } catch (error) {
+    res.status(500).json({ error: "Greška prilikom brisanja objekta." });
+    console.log(res.statusCode)
+  }
+});
+
+
+
 
 //GET KORISNIKOVI OGLASI
 // app.get("/moji-oglasi/:id",async(req,res)=>{
@@ -253,6 +272,9 @@ app.use((req, res, next) => {
 //     .then((response) => res.send(response.message))
 //     .catch((error) => res.status(500).send(error.message));
 // }); OVO TREB AUNKOMENT
+
+
+
 
 app.listen(3001, () => {
   console.log("success 3001 server!");
