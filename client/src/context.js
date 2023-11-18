@@ -340,6 +340,7 @@ export const StareStvariProvider = (props) => {
     }
   }, [loginDetails.loginEmail, loginDetails.loginPassword]);
 
+  
   /**********SVI PODACI TRENUTNOG KORISNIKA I SVI OGLASI KORISNIKA */
 
   const [currentUserData, setCurrentUserData] = useState();
@@ -356,7 +357,7 @@ export const StareStvariProvider = (props) => {
     }
   }, [allDataFromDatabase, potvrdiBrisanje]);
   // console.log(allDataFromDatabase&&allDataFromDatabase);
-
+console.log(potvrdiBrisanje);
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);

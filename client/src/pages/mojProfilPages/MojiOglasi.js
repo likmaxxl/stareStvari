@@ -9,7 +9,7 @@ import "../../scss/mojProfil/_mojiOglasiPage.scss";
 
 export default function MojiOglasi() {
   const params = useParams();
-  
+
   // const [par,setPar]=useState('64beadaa15ffbb97d9b6cdc5')
   console.log(params.id);
   const value = useContext(StareStvariContext);
@@ -34,16 +34,15 @@ export default function MojiOglasi() {
 
   const [idOglas, setIdOglasa] = useState();
 
+  const [mojiOglasi, setMojiOglasi] = useState(
+    value.mojiOglasi && value.mojiOglasi
+  );
 
-
-
-  
   //OPEN  POPUP DA LI STE SIGURNI DA ZELITE DA BRISETE
   const handleClickOpen = (e) => {
     setOpen(true);
     const oglasId = e.target.getAttribute("data-index");
-   
-   
+
     setIdOglasa(oglasId);
     console.log(value.mojiOglasi);
 
@@ -51,36 +50,33 @@ export default function MojiOglasi() {
     console.log(kliknutiOglas);
   };
 
-  
-  
   //POTVRDA BRISANJA ILI ODLAGANJE
   const handleClose = async (e) => {
-    let dataIndexObrisi=e.target.getAttribute("data-index")
+    let dataIndexObrisi = e.target.getAttribute("data-index");
     console.log(dataIndexObrisi);
-    
-    if(dataIndexObrisi==='da'){
-      value.potvrdaBrisanja()
+
+    if (dataIndexObrisi === "da") {
+      value.potvrdaBrisanja();
       setOpen(false);
       try {
-        const response = await axios.delete(`http://localhost:3001/moji-oglasi/${params.id}/${idOglas}`) ;
-        // setMessage(response.data.message);
+        const response = await axios.delete(
+          `http://localhost:3001/moji-oglasi/${params.id}/${idOglas}`
+        );
+
         console.log(`Uspesno je obrisan ID: ${idOglas}`);
+        const updatedItems = mojiOglasi.filter((item) => item.id !== idOglas);
+
+        setMojiOglasi(updatedItems);
       } catch (error) {
-        console.log('Greska prilikom brisanja');
+        console.log("Greska prilikom brisanja");
         // setMessage('Greška prilikom brisanja objekta.');
         setOpen(false);
       }
-    }else{
+    } else {
       setOpen(false);
     }
-   
-
   };
-
-
-
-
-
+  console.log(mojiOglasi);
 
   //GET KORISNIKOVI OGLASI IZ BAZE
   // const [mojiOglasi,setMojiOglasi]=useState()
@@ -129,8 +125,7 @@ export default function MojiOglasi() {
 
           <div className="mojiOglasiSortLength">
             <div className="sortLength length">
-              Ukupno Oglasa:{" "}
-              {value.mojiOglasi ? value.mojiOglasi.length : "0"}
+              Ukupno Oglasa: {mojiOglasi ? mojiOglasi.length : "0"}
             </div>
             <div className="sortLength sort" onClick={sortirajClick}>
               <span>
@@ -148,9 +143,9 @@ export default function MojiOglasi() {
           </div>
           <div className="mojProfilOglasi">
             <div className="row">
-              {value.mojiOglasi && value.mojiOglasi.length > 0 ? (
-                value.mojiOglasi &&
-                value.mojiOglasi
+              {mojiOglasi && mojiOglasi.length > 0 ? (
+                mojiOglasi &&
+                mojiOglasi
                   .filter((n) => n)
                   .map((all) => {
                     return (
