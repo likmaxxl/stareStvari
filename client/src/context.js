@@ -15,6 +15,7 @@ export const StareStvariProvider = (props) => {
   const [allDataFromDatabase, setAllDataFromDatabase] = useState();
   const [potvrdiBrisanje, setPotvrdiBrisanje] = useState(false);
   const [googleBtnHover, setGoogleBtnHover] = useState(false);
+  const [heartCheck, setHeartCheck] = useState(false);
   //CUSTOM LOGIN SUBMIT BUTTON
   const [errorAuthLogIn, setErrorAuthLogIn] = useState(false);
   const [user, setUser] = useState();
@@ -26,7 +27,7 @@ export const StareStvariProvider = (props) => {
       allData = res.data.data;
       setAllDataFromDatabase(allData);
     });
-  }, [user, potvrdiBrisanje, googleBtnHover, errorAuthLogIn]);
+  }, [user, potvrdiBrisanje, googleBtnHover, errorAuthLogIn, heartCheck]);
   // console.log(allDataFromDatabase && allDataFromDatabase);
   /*********************END GET ALL DATA FROM DATABASE MONGO DB */
 
@@ -42,7 +43,7 @@ export const StareStvariProvider = (props) => {
       setLoading(false);
       setSviOglasi(allData && allData.data);
     });
-  }, [potvrdiBrisanje]);
+  }, [potvrdiBrisanje,heartCheck]);
   /**END GET SVI OGLASI IZ BAZE */
 
   useEffect(() => {
@@ -340,7 +341,6 @@ export const StareStvariProvider = (props) => {
     }
   }, [loginDetails.loginEmail, loginDetails.loginPassword]);
 
-  
   /**********SVI PODACI TRENUTNOG KORISNIKA I SVI OGLASI KORISNIKA */
 
   const [currentUserData, setCurrentUserData] = useState();
@@ -357,7 +357,8 @@ export const StareStvariProvider = (props) => {
     }
   }, [allDataFromDatabase, potvrdiBrisanje]);
   // console.log(allDataFromDatabase&&allDataFromDatabase);
-console.log(potvrdiBrisanje);
+  console.log(potvrdiBrisanje);
+
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -637,15 +638,13 @@ console.log(potvrdiBrisanje);
   /*****************************END MOJ PROFIL SHOW***************/
 
   /************************DODAJ/OBRISI U LISTU PRACENJA */
-  const [heartCheck, setHeartCheck] = useState(false);
+
   const [oglasiKojePratim, setOglasiKojePratim] = useState();
-  const pratiOglas = (e) => {
-    let boolean = !heartCheck;
-    setHeartCheck(boolean);
 
-    console.log(e.target);
+  const pratiOglas = async  (e) => {
+    e.preventDefault();
+    setLoading(true);
     let getIdFromCurrentAds = e.target.getAttribute("id");
-
     const checkedAds = sviOglasi.filter((all) => {
       return all._id === getIdFromCurrentAds;
     });
@@ -655,26 +654,27 @@ console.log(potvrdiBrisanje);
       allDataFromDatabase.filter((all) => {
         return user.email === all.regEmail && user.id === all._id;
       });
-    //   console.log(user);
-    console.log(currentUser);
-    console.log(checkedAds);
-    console.log(sviOglasi);
-    //     const isDouble = sviOglasi&&sviOglasi.some(obj => obj._id === checkedAds&&checkedAds[0]._id);
-    // console.log(isDouble);
 
-    if (boolean === true) {
-      console.log("Dodato u listu");
-      setLoading(true);
-      axios.post(`http://localhost:3001/pratim/${user.id}`,{
-        oglasiKojePratim:checkedAds
-      })
-      .then((response) => {
+    setHeartCheck(true);
 
+    // axios
+    //   .post(`http://localhost:3001/pratim/${user.id}`, {
+    //     oglasiKojePratim: checkedAds,
+    //   })
+
+    //   .then((response) => { console.log("Dodato u listu")});
+
+    try {
+      const response = await axios.post(`http://localhost:3001/pratim/${user.id}`, {
+        oglasiKojePratim: checkedAds,
       });
-    } else {
-      console.log("Obrisano sa Liste");
+      console.log("Uspešan POST zahtev. Odgovor:", response.data);
+      // Ovde možete manipulisati odgovorom ili ažurirati stanje vaše aplikacije
+    } catch (error) {
+      console.error("Došlo je do greške prilikom slanja POST zahteva:", error);
+    } finally {
+      setLoading(false); // Postavljanje indikatora učitavanja na false nakon završetka zahteva, bez obzira na ishod
     }
-    setLoading(false);
   };
   console.log(loading);
 
@@ -684,17 +684,18 @@ console.log(potvrdiBrisanje);
     let currentUser =
       allDataFromDatabase &&
       allDataFromDatabase.filter((all) => {
-        return user&&user.email === all.regEmail && user.id === all._id;
+        return user && user.email === all.regEmail && user.id === all._id;
       });
     let currentUserOglasiKojePratim =
       currentUser &&
       currentUser.map((all) => {
         return all.oglasiKojePratim;
       }, []);
- //Lista duplikata poredjenje svi oglasi i oglasi koje pratim
+    //Lista duplikata poredjenje svi oglasi i oglasi koje pratim
     const list1Ids = new Set(sviOglasi && sviOglasi.map((item) => item._id));
     const duplicateItems =
-      currentUserOglasiKojePratim &&currentUserOglasiKojePratim.length>0&&
+      currentUserOglasiKojePratim &&
+      currentUserOglasiKojePratim.length > 0 &&
       currentUserOglasiKojePratim[0].filter((item) => list1Ids.has(item._id));
 
     console.log(duplicateItems && duplicateItems);
@@ -704,9 +705,27 @@ console.log(potvrdiBrisanje);
     );
   }, [allDataFromDatabase && allDataFromDatabase, heartCheck]);
 
-  console.log(userOglasiKojePratim);
-
-
+  //OBRISI IZ LISTE
+  const [trenutniOglasKojiPratim, setTrenutniOglasKojiPratim] = useState();
+  const obrisiIzListePratim = async (e) => {
+    // console.log(params.id);
+    let oglasKojiPratimId = e.target.getAttribute("id");
+    setHeartCheck(false);
+    setTrenutniOglasKojiPratim(oglasKojiPratimId);
+    setLoading(true);
+    await axios
+      .delete(
+        `http://localhost:3001/pratim/${user && user.id}/${oglasKojiPratimId}`
+      )
+      .then((response) => console.log("Delete successful"))
+      .catch((error) => {
+        // setErrorMessage(error.message);
+        console.error("There was an error!", error);
+      });
+      
+      setLoading(false);
+  };
+  console.log(heartCheck);
 
   /************************END DODAJ/OBRISI U LISTU PRACENJA */
 
@@ -791,7 +810,9 @@ console.log(potvrdiBrisanje);
           pratiOglas,
           heartCheck,
           userOglasiKojePratim,
-         
+          //IZBACI OGLAS IZ LISTE PRACENJA
+          obrisiIzListePratim,
+          loading,
         }}
       >
         {props.children}

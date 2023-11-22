@@ -21,22 +21,6 @@ export default function OglasKojiPratim({cena,valuta,naslovOglasa,pregleda,textO
 
 
 
-  //obrisi iz liste pracenja
-  const [trenutniOglasKojiPratim,setTrenutniOglasKojiPratim]=useState()
-  const obrisiIzListePratim=(e)=>{
-console.log(params.id);
-    let oglasKojiPratimId=e.target.getAttribute('data-value')
-    setTrenutniOglasKojiPratim(oglasKojiPratimId)
-    axios.delete(`http://localhost:3001/pratim/${params.id}/${oglasKojiPratimId}`)
-    .then(response => console.log('Delete successful'))
-    .catch(error => {
-        // setErrorMessage(error.message);
-        console.error('There was an error!', error);
-    });
-
-}
-
-
   return (
     <>
       <div className={value.windowWidth >= 992&&
@@ -88,7 +72,7 @@ console.log(params.id);
             
               >
                 <Link to="/konverzacija" className="btnOption"><MailOutline/>Pošalji poruku</Link>           
-                <button className="btnOption obrisiOglas" data-value={_id} onClick={obrisiIzListePratim}><Close data-value={_id} onClick={obrisiIzListePratim}/></button>
+                <button className="btnOption obrisiOglas" id={_id} onClick={value.obrisiIzListePratim}><Close id={_id} onClick={value.obrisiIzListePratim}/></button>
               </div>
             </div>
           </div>

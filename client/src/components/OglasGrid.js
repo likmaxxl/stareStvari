@@ -24,10 +24,13 @@ export function OglasGrid(sviOglasi) {
   // const handleClose = () => {
   //   setAnchorEl(null);
   // };
-
+console.log(value.userOglasiKojePratim);
+console.log(sviOglasi);
   return (
     <>
       <div className="col-xxl-6">
+     
+  
         <div className="card">
           <a href="#">
             <img
@@ -57,29 +60,28 @@ export function OglasGrid(sviOglasi) {
                     }
                     
                   /> */}
+                {
+       value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?"Pratim":"Ne "
+    }
                   <div className="pratiOglas">
-                    {value.user && value.user.email ? (
+                    
                       <>
-                        {" "}
-                        <span>Prati</span>{" "}
+                     
+                        <span>Prati</span>
                         <Checkbox
                           id={sviOglasi._id}
-                          onClick={value.pratiOglas}
-                          icon={<FavoriteBorder />}
-
-                          checkedIcon={<Favorite/>}
-
-                          
+                          onClick={value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?value.obrisiIzListePratim:value.pratiOglas}
+                          icon={ value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?<Favorite/>:<FavoriteBorder/>}
+                          checkedIcon={ value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?<FavoriteBorder/>:<Favorite/>}            
                           disabled={
                             value.user &&
-                            value.user.email === sviOglasi.imeKorisnika
+                            value.user.email === sviOglasi.imeKorisnika||value.loading
                           }
-                        />{" "}
+                        />
                       </>
-                    ) : (
-                      ""
-                    )}
+                   
                   </div>
+            {/* <h1>{value.loading&&'LOADING...'}</h1> */}
                   <Button
                     id="basic-button"
                     aria-controls={value.open ? "basic-menu" : undefined}
