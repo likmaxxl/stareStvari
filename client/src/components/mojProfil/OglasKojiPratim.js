@@ -30,7 +30,7 @@ export default function OglasKojiPratim({cena,valuta,naslovOglasa,pregleda,textO
           <div className="box">
             <a href="#">
               <img
-                src={uploadedImages[0].data_url}
+                src={uploadedImages.length>0&&uploadedImages[0].data_url}
                 alt=""
               />
             </a>
@@ -69,7 +69,6 @@ export default function OglasKojiPratim({cena,valuta,naslovOglasa,pregleda,textO
               </div>
               <div
                 className="btnsOptions"
-            
               >
                 <Link to="/konverzacija" className="btnOption"><MailOutline/>Pošalji poruku</Link>           
                 <button className="btnOption obrisiOglas" id={_id} onClick={value.obrisiIzListePratim}><Close id={_id} onClick={value.obrisiIzListePratim}/></button>

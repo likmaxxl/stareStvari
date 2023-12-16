@@ -74,6 +74,7 @@ export default function PostaviOglasForm() {
     mesec: "",
     datum: "",
     cena:0,
+    prate:[]
   });
 
   const [errorPostaviOglas, setErrorPostaviOglas] = useState({
@@ -154,7 +155,7 @@ export default function PostaviOglasForm() {
           postaviOglasPolja: postaviOglasPolja,
         })
         .then((response) => {
-          console.log("Data posted successfully");
+          console.log("Data posted successfully",response.data);
           setLoading(false);
         })
         .catch((error) => {

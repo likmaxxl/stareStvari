@@ -25,7 +25,7 @@ export function DetaljnaPretragaForm() {
     setOtvoriDetalje(!otvoriDetalje);
     setClickedOtvoriDetalje(true);
   };
-  console.log(otvoriDetalje);
+  // console.log(otvoriDetalje);
 
   return (
     <>

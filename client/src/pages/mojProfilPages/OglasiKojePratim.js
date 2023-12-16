@@ -11,11 +11,14 @@ export default function OglasiKojePratim() {
 const [currentUser,setCurrentUser]=useState()
 
 useEffect(()=>{
-  const current = value.allDataFromDatabase.filter(all => {
+
+  let current = value.allDataFromDatabase.filter(all => {
     return all.regEmail === value.user.email;
   });
+
   setCurrentUser(current)
-},[value.heartCheck])
+  console.log(current);
+},[value.heartCheck,value.userOglasiKojePratim&&value.userOglasiKojePratim])
 
 console.log(currentUser);
 
@@ -50,7 +53,11 @@ const fullWIdthPratimOglaseContainer={
               }):<p>Trenutno ne pratite ni jedan oglas.</p>
             }
               
-            
+              {/* {
+              value.userOglasiKojePratim&&value.userOglasiKojePratim.length>0?value.userOglasiKojePratim.map((all)=>{
+                return <OglasKojiPratim {...all}/>
+              }):<p>Trenutno ne pratite ni jedan oglas.</p>
+            } */}
           </div>
         </div>
       </div>

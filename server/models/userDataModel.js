@@ -29,6 +29,7 @@ const userDataSchema = new mongoose.Schema({
       uploadedImages: Array,
       valuta: String,
       zamena: Boolean,
+    
     },
   ],
   poruke: String,
@@ -51,6 +52,7 @@ const userDataSchema = new mongoose.Schema({
       uploadedImages: Array,
       valuta: String,
       zamena: Boolean,
+
     },
   ],
   pozitivneOcene: Number,

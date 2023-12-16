@@ -109,14 +109,18 @@ app.post("/postavi-oglas/:id", async (req, res) => {
 
 //DODAVANJE U LISTU PRACENJA
 app.post("/pratim/:id", async (req, res) => {
+  const ids=req.params.id 
+  console.log(`Received data for ID ${ids}`);
   try{
     await User.updateOne(
       { _id: req.params.id },
      
       { $push: { oglasiKojePratim: req.body.oglasiKojePratim} }
-   
+
     );
-   
+    console.log('uspesno dodato u listu pracenja!');
+
+
   }catch{
     console.log('greska');
   }

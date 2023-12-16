@@ -24,8 +24,8 @@ export function OglasGrid(sviOglasi) {
   // const handleClose = () => {
   //   setAnchorEl(null);
   // };
-console.log(value.userOglasiKojePratim);
-console.log(sviOglasi);
+// console.log(value.userOglasiKojePratim);
+// console.log(sviOglasi);
   return (
     <>
       <div className="col-xxl-6">
@@ -60,26 +60,32 @@ console.log(sviOglasi);
                     }
                     
                   /> */}
-                {
+                {/* {
        value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?"Pratim":"Ne "
+    } */}
+    {
+      //  value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?"Pratim":"Ne "
+ 
     }
                   <div className="pratiOglas">
                     
                       <>
                      
-                        <span>Prati</span>
-                        <Checkbox
+                        {/* <span>Prati</span> */}
+                        {/* <Checkbox
                           id={sviOglasi._id}
-                          onClick={value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?value.obrisiIzListePratim:value.pratiOglas}
+                          onChange={value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?value.obrisiIzListePratim:value.pratiOglas}
                           icon={ value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?<Favorite/>:<FavoriteBorder/>}
                           checkedIcon={ value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?<FavoriteBorder/>:<Favorite/>}            
                           disabled={
                             value.user &&
                             value.user.email === sviOglasi.imeKorisnika||value.loading
                           }
-                        />
+                        /> */}
                       </>
-                   
+               <button id={sviOglasi._id} onClick={value.pratiOglas}>prati
+                {/* {value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?'Obrisi':'Zaprati'} */}
+               </button>
                   </div>
             {/* <h1>{value.loading&&'LOADING...'}</h1> */}
                   <Button
