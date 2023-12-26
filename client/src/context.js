@@ -20,21 +20,19 @@ export const StareStvariProvider = (props) => {
   const [errorAuthLogIn, setErrorAuthLogIn] = useState(false);
   const [user, setUser] = useState();
   useEffect(() => {
-
     let allData = "";
     axios.get(`http://localhost:3001/svi-korisnici`).then((res) => {
       const persons = res.data.data;
       //  console.log(res.data);
       allData = res.data.data;
       setAllDataFromDatabase(allData);
-      console.log('allData from database!');
+      console.log("allData from database!");
     });
   }, [user, potvrdiBrisanje, googleBtnHover, errorAuthLogIn, heartCheck]);
   // console.log(allDataFromDatabase && allDataFromDatabase);
   /*********************END GET ALL DATA FROM DATABASE MONGO DB */
 
   /**GET SVI OGLASI IZ BAZE */
-  const [userOglasiKojePratim, setUserOglasiKojePratim] = useState("");
   const [sviOglasi, setSviOglasi] = useState();
   useEffect(() => {
     setLoading(true);
@@ -45,7 +43,7 @@ export const StareStvariProvider = (props) => {
       setLoading(false);
       setSviOglasi(allData && allData.data);
     });
-  }, [potvrdiBrisanje, heartCheck,userOglasiKojePratim&&userOglasiKojePratim.length>0&&userOglasiKojePratim[0].id]);
+  }, [potvrdiBrisanje, heartCheck]);
   //userOglasiKojePratim&&userOglasiKojePratim.length>0&&userOglasiKojePratim[0][0].id
   /**END GET SVI OGLASI IZ BAZE */
 
@@ -360,7 +358,6 @@ export const StareStvariProvider = (props) => {
     }
   }, [allDataFromDatabase, potvrdiBrisanje]);
   // console.log(allDataFromDatabase&&allDataFromDatabase);
-  console.log(potvrdiBrisanje);
 
   const navigate = useNavigate();
 
@@ -643,102 +640,83 @@ export const StareStvariProvider = (props) => {
   /************************DODAJ/OBRISI U LISTU PRACENJA */
 
   // console.log(user);
+  const [currentUserAllData, setCurrentUserAllData] = useState();
   const pratiOglas = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setHeartCheck(!heartCheck);
 
     let getIdFromCurrentAds = e.target.getAttribute("id");
-    
+
     let checkedAds = sviOglasi.filter((all) => {
       return all._id === getIdFromCurrentAds;
     });
+    console.log(checkedAds);
 
-    // const currentUser =
-    //   allDataFromDatabase &&
-    //   allDataFromDatabase.filter((all) => {
-    //     return user.email === all.regEmail && user.id === all._id;
-    //   });
-     console.log(checkedAds);
+   let sviOglasiIzListePratim=currentUserAllData&&currentUserAllData[0].oglasiKojePratim.map((all)=>{
+    return all
+   })
+
+   const duplicates = sviOglasiIzListePratim.filter(item1 =>
+    checkedAds.some(item2 => item2._id === item1._id)
+  );
+  console.log('Duplicates:', duplicates);
+
+if(!duplicates){
+  alert('nema')
+}else{
+  alert('ima')
+}
 
 
 
-// Check if the array contains an object with the specific ID
-// const hasObject = userOglasiKojePratim&&userOglasiKojePratim.some(obj => obj._id === getIdFromCurrentAds);
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        `http://localhost:3001/pratim/${user.id}`,
+        {
+          oglasiKojePratim: checkedAds,
+        }
+      );
 
-// if (hasObject) {
-//   console.log('The array contains an object with the ID.');
-// } else {
-//   console.log('The array does not contain an object with the ID.');
-// }
-
-axios
-.post(`http://localhost:3001/pratim/${user.id}`, {
-  oglasiKojePratim: checkedAds,
-})
-.then((response) => {
-  console.log("Data posted successfully",response);
-  setLoading(false);
-})
-.catch((error) => {
-  console.error("Error posting data:", error);
-  setLoading(false);
-});
-    // try {
-    //   setLoading(true);
-    //   const response = axios.post(
-    //     `http://localhost:3001/pratim/${user.id}`,
-    //     {
-    //       oglasiKojePratim: checkedAds,
-    //     }
-    //   )
-    //   console.log("Uspešan POST zahtev. Odgovor:", response);     
-    //   // Ovde zsmožete manipulisati odgovorom ili ažurirati stanje vaše aplikacije
-    //   setUserOglasiKojePratim(
-    //   [...userOglasiKojePratim,checkedAds[0]]
-    //   );
-    // } catch (error) {
-    //   setHeartCheck(false);
-    //   console.log("Došlo je do greške prilikom slanja POST zahteva:", error);
-      
-    // } finally {
-    //   setLoading(false); // Postavljanje indikatora učitavanja na false nakon završetka zahteva, bez obzira na ishod
-    //   console.log('zavrseno');
-    // }
+      console.log("Uspešan POST zahtev. Odgovor:", response);
+      alert(response.data);
+      // Ovde zsmožete manipulisati odgovorom ili ažurirati stanje vaše aplikacije
+    } catch (error) {
+      setHeartCheck(false);
+      console.log("Došlo je do greške prilikom slanja POST zahteva:", error);
+    }
+    finally {
+      setLoading(false); // Postavljanje indikatora učitavanja na false nakon završetka zahteva, bez obzira na ishod
+      console.log('zavrseno');
+    }
   };
-  console.log(heartCheck);
-  console.log(loading);
-console.log(allDataFromDatabase&&allDataFromDatabase);
+  //   console.log(heartCheck);
+  // console.log(loading);
+  // console.log(allDataFromDatabase&&allDataFromDatabase);
+  // console.log(user);
+  // console.log(userOglasiKojePratim&&userOglasiKojePratim);
 
  
- 
-  // useEffect(() => {
-  //   let currentUser =
-  //     allDataFromDatabase &&
-  //     allDataFromDatabase.filter((all) => {
-  //       return user && user.email === all.regEmail && user.id === all._id;
-  //     });
-
-  //   let currentUserOglasiKojePratim =
-  //     currentUser &&
-  //     currentUser.map((all) => {
-  //       return all.oglasiKojePratim;
-  //     }, []);
-  //   //Lista duplikata poredjenje svi oglasi i oglasi koje pratim
-  //   const list1Ids = new Set(sviOglasi && sviOglasi.map((item) => item._id));
- 
-  //   // const duplicateItems =
-  //   //   currentUserOglasiKojePratim &&
-  //   //   currentUserOglasiKojePratim.length > 0 &&
-  //   //   currentUserOglasiKojePratim[0].filter((item) => list1Ids.has(item._id));
-
-  //   setUserOglasiKojePratim(
-  //     currentUserOglasiKojePratim && currentUserOglasiKojePratim[0]
-  //   );
-  
-  //   console.log(currentUserOglasiKojePratim);
-  // }, [heartCheck]);
-  // console.log(userOglasiKojePratim);
- 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user) {
+        console.log(user);
+        try {
+          const response = await axios.get(
+            `http://localhost:3001/oglasi-koje-pratim/${user && user.id}`
+          );
+          setCurrentUserAllData(response.data.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    fetchData()
+  }, [user, heartCheck,loading]);
+  console.log(`LOADING......${loading}`);
+  console.log(currentUserAllData && currentUserAllData[0].oglasiKojePratim);
 
   //OBRISI IZ LISTE
   const [trenutniOglasKojiPratim, setTrenutniOglasKojiPratim] = useState();
@@ -763,7 +741,6 @@ console.log(allDataFromDatabase&&allDataFromDatabase);
         console.error("There was an error!", error);
       });
   };
-        console.log(heartCheck);
 
   /************************END DODAJ/OBRISI U LISTU PRACENJA */
 
@@ -846,8 +823,8 @@ console.log(allDataFromDatabase&&allDataFromDatabase);
           googleSingIn_hoverOut,
           //PRATI OGLAS
           pratiOglas,
+          currentUserAllData,
           heartCheck,
-          userOglasiKojePratim,
           //IZBACI OGLAS IZ LISTE PRACENJA
           obrisiIzListePratim,
           loading,

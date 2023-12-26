@@ -47,17 +47,18 @@ const fullWIdthPratimOglaseContainer={
         <div className={container}>
             <h1>Oglasi koji pratim</h1>
           <div className="row">
-            {
+          
+            {/* {
               currentUser&&currentUser[0].oglasiKojePratim.length>0?currentUser[0].oglasiKojePratim.map((all)=>{
                 return <OglasKojiPratim {...all}/>
               }):<p>Trenutno ne pratite ni jedan oglas.</p>
-            }
+            } */}
               
-              {/* {
-              value.userOglasiKojePratim&&value.userOglasiKojePratim.length>0?value.userOglasiKojePratim.map((all)=>{
+              {
+              value.currentUserAllData&&value.currentUserAllData[0].oglasiKojePratim.length>0?value.currentUserAllData[0].oglasiKojePratim.map((all)=>{
                 return <OglasKojiPratim {...all}/>
               }):<p>Trenutno ne pratite ni jedan oglas.</p>
-            } */}
+            }
           </div>
         </div>
       </div>

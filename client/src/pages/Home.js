@@ -1,7 +1,7 @@
-import React, { useContext,useEffect,useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StareStvariContext } from "../context";
-import axios from 'axios'
-import {OglasGrid} from "../components/OglasGrid";
+import axios from "axios";
+import { OglasGrid } from "../components/OglasGrid";
 import {
   TextField,
   Autocomplete,
@@ -14,40 +14,37 @@ import {
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import  {PretragaDrugaVisestranicna} from '../components/PretragaDrugaVisestranicna'
-import  {DetaljnaPretragaForm} from '../components/DetaljnaPretragaForm'
-import '../scss/_home.scss'
+import { PretragaDrugaVisestranicna } from "../components/PretragaDrugaVisestranicna";
+import { DetaljnaPretragaForm } from "../components/DetaljnaPretragaForm";
+import "../scss/_home.scss";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 export default function Home() {
   const value = useContext(StareStvariContext);
 
-//   const [f,setF]=useState()
+  //   const [f,setF]=useState()
 
+  //   useEffect(()=>{
+  // axios.get('https://starestvariloginsignup-default-rtdb.firebaseio.com/sviPodaci.json')
+  // .then(response=>{
+  //   // console.log(response.data);
+  // const responseArray=[]
 
-//   useEffect(()=>{
-// axios.get('https://starestvariloginsignup-default-rtdb.firebaseio.com/sviPodaci.json')
-// .then(response=>{
-//   // console.log(response.data);
-// const responseArray=[]
+  // for (let key in response.data.sviOglasi) {
+  //   responseArray.push({...response.data.sviOglasi[key],id:key})
+  // }
+  //   setF(responseArray)
+  // })
+  // .catch((err)=>{
+  //   console.log(err);
+  // })
 
-// for (let key in response.data.sviOglasi) {
-//   responseArray.push({...response.data.sviOglasi[key],id:key})
-// }
-//   setF(responseArray)
-// })
-// .catch((err)=>{
-//   console.log(err);
-// })
-
-
-//   },[])
-// console.log(f);
-// console.log(value.allDataFromDatabase);
+  //   },[])
+  // console.log(f);
+  // console.log(value.allDataFromDatabase);
   return (
     <>
-  
       <section id="cover">
         <div className="coverBackground">
           <form action="" onChange={value.onChangePretragaInputs}>
@@ -94,7 +91,6 @@ export default function Home() {
               />
 
               <TextField
-           
                 id="outlined-basic"
                 label="Cena od"
                 variant="outlined"
@@ -181,12 +177,17 @@ export default function Home() {
                   <TextField {...params} label="Izaberi Mesto" />
                 )}
               />
-              
             </div>
             <div className="pretragaPoNaslovu">
-              <TextField onChange={value.onChangePretragaInputs} name="naslovOglasa"
-              value={value.naslovOglasa} id="outlined-basic" label="Naslov Oglasa" variant="outlined" />
-              </div>
+              <TextField
+                onChange={value.onChangePretragaInputs}
+                name="naslovOglasa"
+                value={value.naslovOglasa}
+                id="outlined-basic"
+                label="Naslov Oglasa"
+                variant="outlined"
+              />
+            </div>
             <div className="submitBtn">
               <Button
                 variant="contained"
@@ -205,37 +206,36 @@ export default function Home() {
             type="video/mp4"
           />
         </video> */}
-  {/* <img src="https://images.pexels.com/photos/4913340/pexels-photo-4913340.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> */}
-  {/* <img src="https://images.pexels.com/photos/951531/pexels-photo-951531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> */}
+        {/* <img src="https://images.pexels.com/photos/4913340/pexels-photo-4913340.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> */}
+        {/* <img src="https://images.pexels.com/photos/951531/pexels-photo-951531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" /> */}
       </section>
 
       <section className="adsBanner">
         <div className="container">
           <div className="adsBannerBanner">
-            Ako imate jednu ili više stvari za prodaju,nema boljeg mesta od {" "}
+            Ako imate jednu ili više stvari za prodaju,nema boljeg mesta od{" "}
             <a href="#">starestvari.rs</a> ,ovo je pravo mesto za prodaju i
             kupovinu antikviteta.
           </div>
         </div>
       </section>
-  
-<section className="homeDrugaPretraga">
 
-<PretragaDrugaVisestranicna/>
-<DetaljnaPretragaForm/>
-</section>
+      <section className="homeDrugaPretraga">
+        <PretragaDrugaVisestranicna />
+        <DetaljnaPretragaForm />
+      </section>
 
-  <section className="sviOglasi">
-<div className="container">
-  <div className="row">
- {  value.sviOglasi&&value.sviOglasi.length>0?value.sviOglasi.map((sviOglasi)=>{       
-         return <OglasGrid key={sviOglasi.id}
-         {...sviOglasi} />    
-    }):"Loading"} 
- 
-  </div>
-</div>
-  </section>
+      <section className="sviOglasi">
+        <div className="container">
+          <div className="row">
+            {value.sviOglasi && value.sviOglasi.length > 0
+              ? value.sviOglasi.map((sviOglasi) => {
+                  return <OglasGrid key={sviOglasi.id} {...sviOglasi} />;
+                })
+              : "Loading"}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

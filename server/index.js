@@ -127,6 +127,19 @@ app.post("/pratim/:id", async (req, res) => {
 
 });
 
+//GET PRATIM
+
+app.get("/oglasi-koje-pratim/:id", async (req, res) => {
+  try {
+    let id=req.params.id
+    const foundObject=await User.find({_id : id});
+
+      res.send({ status: id, data: foundObject });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 /*************OGLASI KOJE PRATIM OBRISI */
 app.delete("/pratim/:idUser/:trenutniOglasKojiPratim", async (req, res) => {
