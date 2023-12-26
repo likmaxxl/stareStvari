@@ -29,8 +29,6 @@ export function OglasGrid(sviOglasi) {
   return (
     <>
       <div className="col-xxl-6">
-     
-  
         <div className="card">
           <a href="#">
             <img
@@ -83,7 +81,7 @@ export function OglasGrid(sviOglasi) {
                           }
                         /> */}
                       </>
-               <button id={sviOglasi._id} onClick={value.pratiOglas}>prati
+               <button disabled={value.loadingPrati} id={sviOglasi._id} onClick={value.pratiOglas}>prati
                 {/* {value.userOglasiKojePratim&&value.userOglasiKojePratim.some(objekat => objekat.id === sviOglasi.id)?'Obrisi':'Zaprati'} */}
                </button>
                   </div>

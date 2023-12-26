@@ -641,6 +641,7 @@ export const StareStvariProvider = (props) => {
 
   // console.log(user);
   const [currentUserAllData, setCurrentUserAllData] = useState();
+  const [loadingPrati,setLoadingPrati]=useState()
   const pratiOglas = async (e) => {
     // e.preventDefault();
     setHeartCheck(!heartCheck);
@@ -661,35 +662,35 @@ export const StareStvariProvider = (props) => {
   );
   console.log('Duplicates:', duplicates);
 
-if(!duplicates){
-  alert('nema')
-}else{
+if(duplicates.length>0){
   alert('ima')
+}else{
+  try {
+    // setLoadingPrati(true);
+    const response = await axios.post(
+      `http://localhost:3001/pratim/${user.id}`,
+      {
+        oglasiKojePratim: checkedAds,
+      }
+    );
+    // setLoadingPrati(false);
+    console.log("Uspešan POST zahtev. Odgovor:", response);
+    alert(response.data);
+    // Ovde zsmožete manipulisati odgovorom ili ažurirati stanje vaše aplikacije
+  } catch (error) {
+    setHeartCheck(false);
+    console.log("Došlo je do greške prilikom slanja POST zahteva:", error);
+  }
+  finally {
+    // setLoadingPrati(false); // Postavljanje indikatora učitavanja na false nakon završetka zahteva, bez obzira na ishod
+    console.log('zavrseno');
+  }
+};
 }
 
 
 
-    try {
-      setLoading(true);
-      const response = await axios.post(
-        `http://localhost:3001/pratim/${user.id}`,
-        {
-          oglasiKojePratim: checkedAds,
-        }
-      );
-
-      console.log("Uspešan POST zahtev. Odgovor:", response);
-      alert(response.data);
-      // Ovde zsmožete manipulisati odgovorom ili ažurirati stanje vaše aplikacije
-    } catch (error) {
-      setHeartCheck(false);
-      console.log("Došlo je do greške prilikom slanja POST zahteva:", error);
-    }
-    finally {
-      setLoading(false); // Postavljanje indikatora učitavanja na false nakon završetka zahteva, bez obzira na ishod
-      console.log('zavrseno');
-    }
-  };
+  
   //   console.log(heartCheck);
   // console.log(loading);
   // console.log(allDataFromDatabase&&allDataFromDatabase);
@@ -701,6 +702,8 @@ if(!duplicates){
     const fetchData = async () => {
       if (user) {
         console.log(user);
+    setLoadingPrati(true);
+
         try {
           const response = await axios.get(
             `http://localhost:3001/oglasi-koje-pratim/${user && user.id}`
@@ -709,7 +712,7 @@ if(!duplicates){
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
-          setLoading(false);
+          setLoadingPrati(false);
         }
       }
     };
@@ -825,6 +828,7 @@ if(!duplicates){
           pratiOglas,
           currentUserAllData,
           heartCheck,
+          loadingPrati,
           //IZBACI OGLAS IZ LISTE PRACENJA
           obrisiIzListePratim,
           loading,
