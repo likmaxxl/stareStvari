@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { StareStvariContext } from "../context";
+import {Link} from 'react-router-dom'
 
 export function OglasGrid(sviOglasi) {
   const value = useContext(StareStvariContext);
@@ -118,7 +119,7 @@ export function OglasGrid(sviOglasi) {
             <div className="priceTitle">
               <div className="title">
                 {" "}
-                <a href="#">{sviOglasi.naslovOglasa}</a>{" "}
+                <Link to={`trenutni-oglas/${sviOglasi.naslovOglasa}/${sviOglasi.id}`}>{sviOglasi.naslovOglasa}</Link>{" "}
               </div>
               <div className="price">
                 {sviOglasi.cena}

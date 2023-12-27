@@ -687,11 +687,7 @@ if(duplicates.length>0){
   }
 };
 }
-
-
-
-  
-  //   console.log(heartCheck);
+   //   console.log(heartCheck);
   // console.log(loading);
   // console.log(allDataFromDatabase&&allDataFromDatabase);
   // console.log(user);
@@ -713,12 +709,13 @@ if(duplicates.length>0){
           console.error("Error fetching data:", error);
         } finally {
           setLoadingPrati(false);
+          console.log('UZETO');
         }
       }
     };
     fetchData()
   }, [user, heartCheck,loading]);
-  console.log(`LOADING......${loading}`);
+  console.log(`LOADING......${loadingPrati}`);
   console.log(currentUserAllData && currentUserAllData[0].oglasiKojePratim);
 
   //OBRISI IZ LISTE

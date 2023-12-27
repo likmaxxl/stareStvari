@@ -13,6 +13,7 @@ import MojePoruke from "./pages/mojProfilPages/MojePoruke";
 import PorukaKonverzacija from "./components/mojProfil/PorukaKonverzacija";
 import Ocene from "./pages/mojProfilPages/Ocene";
 import OglasiKojePratim from "./pages/mojProfilPages/OglasiKojePratim";
+import TrenutniOglas from "./pages/TrenutniOglas";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/_global.scss";
 // import './css/style.css'
@@ -94,6 +95,12 @@ function App() {
               <OglasiKojePratim />
             </ProtectedRoute>
           }
+        ></Route>
+             <Route
+          path="/trenutni-oglas/:name/:id"
+          element={    
+           <TrenutniOglas />
+             }
         ></Route>
         </Routes>
        
