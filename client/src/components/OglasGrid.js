@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Favorite from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
@@ -27,6 +27,11 @@ export function OglasGrid(sviOglasi) {
   // };
 // console.log(value.userOglasiKojePratim);
 // console.log(sviOglasi);
+// console.log(value.currentUserAllData&&value.currentUserData[0].oglasiKojePratim);
+console.log(value.sviOglasi&&value.sviOglasi);
+
+
+
   return (
     <>
       <div className="col-xxl-6">
@@ -119,7 +124,7 @@ export function OglasGrid(sviOglasi) {
             <div className="priceTitle">
               <div className="title">
                 {" "}
-                <Link to={`trenutni-oglas/${sviOglasi.naslovOglasa}/${sviOglasi.id}`}>{sviOglasi.naslovOglasa}</Link>{" "}
+                <Link to={`/trenutni-oglas/${sviOglasi.naslovOglasa}/${sviOglasi.id}`}>{sviOglasi.naslovOglasa}</Link>{" "}
               </div>
               <div className="price">
                 {sviOglasi.cena}
@@ -128,10 +133,13 @@ export function OglasGrid(sviOglasi) {
             </div>
             <div className="citty">{sviOglasi.grad}</div>
             {value.windowWidth > 768 ? (
-              <div className="description">{sviOglasi.textOglasa}</div>
+              <div className="description">{sviOglasi.textOglasa.substring(0, 20).concat('...')}</div>   
+              
             ) : (
               ""
+ 
             )}
+           
           </div>
 
           {sviOglasi.hitno ? (

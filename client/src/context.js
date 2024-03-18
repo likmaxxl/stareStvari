@@ -693,13 +693,13 @@ if(duplicates.length>0){
   // console.log(user);
   // console.log(userOglasiKojePratim&&userOglasiKojePratim);
 
- 
+  const [loadingObrisi,setLoadingObrisi]=useState(false)
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
         console.log(user);
     setLoadingPrati(true);
-
+  
         try {
           const response = await axios.get(
             `http://localhost:3001/oglasi-koje-pratim/${user && user.id}`
@@ -709,23 +709,26 @@ if(duplicates.length>0){
           console.error("Error fetching data:", error);
         } finally {
           setLoadingPrati(false);
+         
           console.log('UZETO');
         }
       }
     };
     fetchData()
-  }, [user, heartCheck,loading]);
-  console.log(`LOADING......${loadingPrati}`);
+  }, [user, heartCheck,loading,loadingObrisi]);
+ 
+
   console.log(currentUserAllData && currentUserAllData[0].oglasiKojePratim);
 
   //OBRISI IZ LISTE
   const [trenutniOglasKojiPratim, setTrenutniOglasKojiPratim] = useState();
+
   const obrisiIzListePratim = async (e) => {
     // console.log(params.id);
     let oglasKojiPratimId = e.target.getAttribute("id");
 
     setTrenutniOglasKojiPratim(oglasKojiPratimId);
-    setLoading(true);
+    setLoadingObrisi(true);
     await axios
       .delete(
         `http://localhost:3001/pratim/${user && user.id}/${oglasKojiPratimId}`
@@ -734,14 +737,16 @@ if(duplicates.length>0){
       .then((response) => {
         console.log("Delete successful");
         setHeartCheck(false);
-        setLoading(false);
+        setLoadingObrisi(false);
       })
       .catch((error) => {
         // setErrorMessage(error.message);
         console.error("There was an error!", error);
+        setLoadingObrisi(false);
       });
+    console.log(oglasKojiPratimId);
   };
-
+  console.log(`LOADING......${loadingObrisi}`);
   /************************END DODAJ/OBRISI U LISTU PRACENJA */
 
   return (
@@ -828,7 +833,7 @@ if(duplicates.length>0){
           loadingPrati,
           //IZBACI OGLAS IZ LISTE PRACENJA
           obrisiIzListePratim,
-          loading,
+          loadingObrisi,
         }}
       >
         {props.children}

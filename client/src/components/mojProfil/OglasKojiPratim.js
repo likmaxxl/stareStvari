@@ -70,8 +70,11 @@ export default function OglasKojiPratim({cena,valuta,naslovOglasa,pregleda,textO
               <div
                 className="btnsOptions"
               >
-                <Link to="/konverzacija" className="btnOption"><MailOutline/>Pošalji poruku</Link>           
-                <button className="btnOption obrisiOglas" id={_id} onClick={value.obrisiIzListePratim}><Close id={_id} onClick={value.obrisiIzListePratim}/></button>
+                <Link to="/konverzacija" className="btnOption"><MailOutline/>Pošalji poruku</Link>  
+                {value.loadingObrisi?<h1>0</h1>:<button className="btnOption obrisiOglas" id={_id} onClick={value.obrisiIzListePratim}>
+                  <Close id={_id} onClick={value.obrisiIzListePratim}/>
+                  </button>}
+                      
               </div>
             </div>
           </div>

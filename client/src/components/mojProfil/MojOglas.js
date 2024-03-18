@@ -2,6 +2,7 @@ import React, { useContext,useState } from "react";
 import { StareStvariContext } from "../../context";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import MojOglasObrisiAlert from './MojOglasObrisiAlert'
+import {Link} from 'react-router-dom'
 import { RemoveRedEyeOutlined,FavoriteBorder
 } from "@mui/icons-material";
 
@@ -9,7 +10,7 @@ import "../../scss/mojProfil/_mojOglas.scss";
 
 export default function MojOglas({mesec,datum,naslovOglasa,cena,textOglasa,pregleda,uploadedImages,handleClose,handleClickOpen,open,id}) {
   const value = useContext(StareStvariContext);
-
+    console.log(value.sviOglasi);
   // const [open, setOpen] = useState(false);
 
   // const handleClickOpen = () => {
@@ -56,14 +57,15 @@ export default function MojOglas({mesec,datum,naslovOglasa,cena,textOglasa,pregl
               <div className="priceTitle">
                 <div className="title">
                   {" "}
-                  <a href="#">{naslovOglasa}</a>{" "}
+                  <Link to={`/trenutni-oglas/${naslovOglasa}/${id}`}>{naslovOglasa}</Link>{" "}
                 </div>
                 <div className="price">{cena} din</div>
               </div>
               {/* <div className="citty">Krusevac</div> */}
             
                 <div className="description">
-                  {textOglasa.substring(0, 20).concat('...')}
+                  {textOglasa.substring(0, 10).concat('...')}
+            
                 </div>
             
             </div>

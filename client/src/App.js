@@ -14,6 +14,7 @@ import PorukaKonverzacija from "./components/mojProfil/PorukaKonverzacija";
 import Ocene from "./pages/mojProfilPages/Ocene";
 import OglasiKojePratim from "./pages/mojProfilPages/OglasiKojePratim";
 import TrenutniOglas from "./pages/TrenutniOglas";
+import KategorijaPage from './pages/KategorijaPage'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./scss/_global.scss";
 // import './css/style.css'
@@ -21,6 +22,10 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
 
+
+
+
+  
   return (
     <StareStvariProvider>
       <div className="App">
@@ -52,7 +57,7 @@ function App() {
             </ProtectedRoute>
             }
           />
-          
+          <Route path="/:kategorija" element={<KategorijaPage/>}/>
           <Route path="/oglasi-hitno" element={<OglasiHitno />} />
 
           {/* MOJ PROFIL PAGES */}
@@ -102,6 +107,8 @@ function App() {
            <TrenutniOglas />
              }
         ></Route>
+        
+        
         </Routes>
        
       </div>
