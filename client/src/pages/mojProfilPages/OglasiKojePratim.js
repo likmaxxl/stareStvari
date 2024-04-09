@@ -11,7 +11,6 @@ export default function OglasiKojePratim() {
 const [currentUser,setCurrentUser]=useState()
 
 useEffect(()=>{
-
   let current = value.allDataFromDatabase.filter(all => {
     return all.regEmail === value.user.email;
   });

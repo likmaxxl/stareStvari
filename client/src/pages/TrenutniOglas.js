@@ -11,12 +11,7 @@ export default function TrenutniOglas() {
   console.log(value.sviOglasi);
   console.log(nameId);
 
-  useEffect(() => {
-    const currentItem =
-      value.sviOglasi && value.sviOglasi.find((item) => item.id === nameId.id);
-    setKliknutiOglas(currentItem);
-  }, []);
-console.log(kliknutiOglas&&kliknutiOglas.izabranaKategorija);
+
  
 const navigate = useNavigate();
 const { pathname } = useLocation();
@@ -27,7 +22,7 @@ const { pathname } = useLocation();
       {/* <Link to='/' state={{ previousPath: pathname }}>{pathname}</Link> */}
         <div className="container">
         <div className="kliknutiOglasKategorija">
-          <span>Kategorija: </span><Link to={`/${kliknutiOglas&&kliknutiOglas.izabranaKategorija}`}>{kliknutiOglas&&kliknutiOglas.izabranaKategorija}</Link> <span> ID oglasa:46466454</span>
+          <span>Kategorija: </span><Link to="/">Svi oglasi  </Link>/<Link to={`/${kliknutiOglas&&kliknutiOglas.izabranaKategorija}`}>{kliknutiOglas&&kliknutiOglas.izabranaKategorija}</Link> <span> ID oglasa:46466454</span>
           <br />
           Datum postavke: 18.5.2022
         </div>
@@ -35,7 +30,8 @@ const { pathname } = useLocation();
           <div className="oglasInfo">
             <div className="box">
               <div className="oglasBtns">
-                <button>Prati</button>
+              <button disabled={value.loadingPrati} id={kliknutiOglas&&kliknutiOglas._id} onClick={value.pratiOglas}>prati
+               </button>
                 <button>Podeli</button>
               </div>
               <div className="oglasImg">
@@ -48,7 +44,10 @@ const { pathname } = useLocation();
             </div>
             <div className="box">
               <div className="sendMsgBtn">
-                <button>Posalji poruku</button>
+                {
+                  value.user&&value.user.email?<Link to={`/konverzacija/${nameId&&nameId.id}`}>Posalji poruku</Link>:<button>Posalji poruku</button>
+                }
+                
               </div>
               <div className="oglasUserData userName">
                 <span>icon</span> Ime Korisnika

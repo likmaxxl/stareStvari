@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import "../../scss/mojProfil/_porukaKonverzacija.scss";
-
+import {useParams} from 'react-router-dom'
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -28,15 +28,28 @@ export default function PorukaKonverzacija() {
 
   /**OTVORI/ZATVORI KONVERZACIJU***/
 
-
 const [hideConversation,setHideConversation]=useState(true)
 const showHideConversationClick=(e)=>{
   e.preventDefault()
   setHideConversation(!hideConversation)
 
 }
-const konverzacijaRef = useRef(null);
 
+
+/**********************Korisnik kome saljemo poruku */
+let idKorisnika = useParams();
+console.log(idKorisnika&&idKorisnika);
+
+const [komeSaljemoPorukuProfil,setKomeSaljemoPorukuProfil]=useState()
+useEffect(() => {
+  const currentItem =
+    value.sviOglasi && value.sviOglasi.find((item) => item.id === idKorisnika.nameId);
+    setKomeSaljemoPorukuProfil(currentItem);
+}, [value.loadingPrati]);
+console.log(komeSaljemoPorukuProfil&&komeSaljemoPorukuProfil);
+
+const konverzacijaRef = useRef(null);
+console.log(konverzacijaRef);
   return (
     <>
       <div className="porukaKonverzacija">
@@ -77,16 +90,16 @@ const konverzacijaRef = useRef(null);
           </div>
 
           <div className="detaljiOglasa">
-            <Link to="/">
+            <Link to={`/trenutni-oglas/${komeSaljemoPorukuProfil&&komeSaljemoPorukuProfil.naslovOglasa}/${komeSaljemoPorukuProfil&&komeSaljemoPorukuProfil.id}`}>
               <div className="naslovOglasaSlika">
                 <img
-                  src="https://images.pexels.com/photos/14437082/pexels-photo-14437082.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  src={komeSaljemoPorukuProfil&&komeSaljemoPorukuProfil.uploadedImages[0].data_url}
                   alt=""
                 />
-                <span> pozlaceni escajg</span>
+                <span>{komeSaljemoPorukuProfil&&komeSaljemoPorukuProfil.naslovOglasa}</span>
               </div>
             </Link>
-            <div className="cenaOglasa">55 din</div>
+            <div className="cenaOglasa">{komeSaljemoPorukuProfil&&komeSaljemoPorukuProfil.cena} <span>{komeSaljemoPorukuProfil&&komeSaljemoPorukuProfil.valuta}</span> </div>
             <div className="pregledaOglasa">
               <span>
                 <RemoveRedEye />
@@ -100,7 +113,7 @@ const konverzacijaRef = useRef(null);
               <span>4</span>
             </div>
             <div className="datumPostavkeOglasa">21.5.2022</div>
-            <div className="mestoKorisnika">Krusevac</div>
+            <div className="mestoKorisnika">{komeSaljemoPorukuProfil&&komeSaljemoPorukuProfil.grad}</div>
           </div>
         </div>
         <div className={value.mojProfilVisible?"konverzacijaPor porukaKonverzacijaRight":"konverzacijaPor"}>

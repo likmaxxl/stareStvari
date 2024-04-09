@@ -693,7 +693,7 @@ if(duplicates.length>0){
   // console.log(user);
   // console.log(userOglasiKojePratim&&userOglasiKojePratim);
 
-  const [loadingObrisi,setLoadingObrisi]=useState(false)
+  const [loadingObrisi,setLoadingObrisi]=useState(true)
   useEffect(() => {
     const fetchData = async () => {
       if (user) {
@@ -709,7 +709,7 @@ if(duplicates.length>0){
           console.error("Error fetching data:", error);
         } finally {
           setLoadingPrati(false);
-         
+          setLoadingObrisi(false)
           console.log('UZETO');
         }
       }

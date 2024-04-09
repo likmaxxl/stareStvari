@@ -6,7 +6,7 @@ import {Link,useParams } from 'react-router-dom'
 import axios from 'axios'
 
 
-export default function OglasKojiPratim({cena,valuta,naslovOglasa,pregleda,textOglasa,uploadedImages,_id}) {
+export default function OglasKojiPratim({cena,valuta,naslovOglasa,pregleda,textOglasa,uploadedImages,_id,id}) {
   const value = useContext(StareStvariContext);
   const buttonsBottom = {
     bottom: "6px",
@@ -47,7 +47,8 @@ export default function OglasKojiPratim({cena,valuta,naslovOglasa,pregleda,textO
               <div className="priceTitle">
                 <div className="title">
                   {" "}
-                  <a href="#">{naslovOglasa}</a>{" "}
+                  
+                  <Link to={`/trenutni-oglas/${naslovOglasa}/${id}`}>{naslovOglasa}</Link>{" "}
                 </div>
               
                 <div className="price">{cena} {valuta}</div>

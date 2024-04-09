@@ -78,7 +78,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/konverzacija"
+            path="/konverzacija/:nameId"
             element={
               <ProtectedRoute>
                 <PorukaKonverzacija />
